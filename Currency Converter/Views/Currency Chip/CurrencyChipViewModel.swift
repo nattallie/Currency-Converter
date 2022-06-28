@@ -12,6 +12,7 @@ struct CurrencyChipViewModel {
     // MARK: Properties
     let currencyItem: CurrencyItem
     
+    // MARK: Mock
     static var mock: CurrencyChipViewModel {
         .init(currencyItem: .init(currency: .EUR, amount: 0))
     }

@@ -13,11 +13,12 @@ struct ConverterFactory {
     private init() {}
     
     // MARK: Factory
-    static func create() -> UIViewController {
+    static func create(viewModel: ConverterViewModel = .mock) -> UIViewController {
         let viewController: ConverterViewController = .init()
         
         let presenter: ConverterPresenter = .init(
-            view: viewController
+            view: viewController,
+            viewModel: viewModel
         )
         
         viewController.presenter = presenter

@@ -57,6 +57,18 @@ final class ConverterViewController: UIViewController {
         )
         return stack
     }()
+    
+    private lazy var submitButton: UIButton = {
+        let button: UIButton = .init()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(didTapSubmitButton), for: .touchUpInside)
+        button.backgroundColor = Model.Color.buttonDisabled
+        button.layer.cornerRadius = Model.Layout.submitButtonCornerRadius
+        button.titleLabel?.textColor = Model.Color.buttonTitle
+        return button
+    }()
+    
+    private var currencyChips: [CurrencyChip] = []
 
     // MARK: Properties
     private typealias Model = ConverterUIModel
@@ -80,10 +92,14 @@ final class ConverterViewController: UIViewController {
     
     private func addSubviews() {
         view.addSubview(topContainer)
+        
         topContainer.addSubview(titleLabel)
         topContainer.addSubview(balanceLabel)
         topContainer.addSubview(currencyItemsScrollView)
+        
         currencyItemsScrollView.addSubview(currencyItemsStack)
+        
+        view.addSubview(submitButton)
     }
     
     private func addConstraints() {
@@ -101,7 +117,7 @@ final class ConverterViewController: UIViewController {
             
             currencyItemsScrollView.leadingConstraint(toView: topContainer),
             currencyItemsScrollView.trailingConstraint(toView: topContainer),
-            currencyItemsScrollView.topConstraint(toView: balanceLabel, attribute: .bottom, constant: Model.Layout.balanceLabelMarginVer),
+            currencyItemsScrollView.topConstraint(toView: balanceLabel, attribute: .bottom, constant: Model.Layout.currencyItemsMarginVer),
             currencyItemsScrollView.heightConstraint(toView: currencyItemsStack),
             
             currencyItemsStack.leadingConstraint(toView: currencyItemsScrollView),
@@ -109,7 +125,12 @@ final class ConverterViewController: UIViewController {
             currencyItemsStack.topConstraint(toView: currencyItemsScrollView),
             currencyItemsStack.bottomConstraint(toView: currencyItemsScrollView),
             
-            topContainer.bottomConstraint(toView: currencyItemsScrollView, constant: Model.Layout.currencyScrollViewMarginBottom)
+            topContainer.bottomConstraint(toView: currencyItemsScrollView, constant: Model.Layout.currencyScrollViewMarginBottom),
+            
+            submitButton.centerXConstraint(toView: view),
+            submitButton.widthConstraint(toView: view, multiplier: Model.Layout.submitButtonWidthMult),
+            submitButton.heightConstraint(constant: Model.Layout.submitButtonHeight),
+            submitButton.bottomConstraint(toView: view, constant: -Model.Layout.submitButtonMarginVer)
         ])
     }
 }
@@ -122,5 +143,43 @@ extension ConverterViewController: ConverterView {
     
     func setBalanceTitle(_ title: String) {
         balanceLabel.text = title
+    }
+    
+    func setCurrencyItems(_ items: [CurrencyItem]) {
+        currencyChips.forEach { $0.removeFromSuperview() }
+        
+        currencyChips.removeAll()
+        
+        items.forEach { item in
+            let newCurrencyItem: CurrencyChip = {
+                let item: CurrencyChip = .init(viewModel: .init(currencyItem: item))
+                item.translatesAutoresizingMaskIntoConstraints = false
+                return item
+            }()
+            
+            currencyChips.append(newCurrencyItem)
+            currencyItemsStack.addArrangedSubview(newCurrencyItem)
+        }
+    }
+    
+    func updateCurrencyItem(at index: Int, _ item: CurrencyItem) {
+        guard (0..<currencyChips.count).contains(index) else { return }
+        
+        currencyChips[index].configure(viewModel: .init(currencyItem: item))
+    }
+    
+    func setButtonTitle(_ title: String) {
+        submitButton.setTitle(title, for: .normal)
+    }
+    
+    func setButtonActivity(to isEnabled: Bool) {
+        submitButton.backgroundColor = isEnabled ? Model.Color.buttonEnabled : Model.Color.buttonDisabled
+    }
+}
+
+// MARK: - Observer
+extension ConverterViewController {
+    @objc private func didTapSubmitButton() {
+        presenter.didTapSubmitButton()
     }
 }

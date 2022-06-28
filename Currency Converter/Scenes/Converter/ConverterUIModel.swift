@@ -19,18 +19,32 @@ struct ConverterUIModel {
         static var marginLeft: CGFloat { 8 }
         
         static var titleLabelMarginVer: CGFloat { 64 }
-        static var balanceLabelMarginHor: CGFloat { 24 }
+        
+        static var balanceLabelMarginHor: CGFloat { 12 }
         static var balanceLabelMarginVer: CGFloat { 24 }
+        
         static var currencyItemsSpacing: CGFloat { 8 }
+        static var currencyItemsMarginVer: CGFloat { 16 }
         static var currencyScrollViewMarginBottom: CGFloat { 32 }
+        
+        static var submitButtonWidthMult: CGFloat { 0.5 }
+        static var submitButtonHeight: CGFloat { 48 }
+        static var submitButtonMarginVer: CGFloat { 40 }
+        static var submitButtonCornerRadius: CGFloat { submitButtonHeight / 2 }
     }
     
     // MARK: Color
     struct Color {
         static var background: UIColor { .white }
+        
         static var primary: UIColor { .systemBlue }
+        
         static var title: UIColor { .white }
         static var balance: UIColor { .white }
+        
+        static var buttonTitle: UIColor { .white }
+        static var buttonEnabled: UIColor { primary }
+        static var buttonDisabled: UIColor { .lightGray }
     }
     
     // MARK: Font
