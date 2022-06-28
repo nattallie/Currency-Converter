@@ -132,10 +132,7 @@
 		0B8967E2286A1CFD000D155F /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				0B8967E3286A1D0E000D155F /* NetworkClient.swift */,
-				0B8967E6286A1DD0000D155F /* NetworkRequest.swift */,
-				0B8967E8286A1F0E000D155F /* NetworkRequestMethod.swift */,
-				0B8967EA286A2228000D155F /* NetworkError.swift */,
+				0BF23633286ADBC400444B31 /* Client */,
 				0B8967EC286A3C3D000D155F /* Use Cases */,
 				0B8967ED286A3C47000D155F /* Entities */,
 			);
@@ -165,6 +162,17 @@
 				0B8967F7286A3F59000D155F /* Consts.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		0BF23633286ADBC400444B31 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				0B8967E3286A1D0E000D155F /* NetworkClient.swift */,
+				0B8967E6286A1DD0000D155F /* NetworkRequest.swift */,
+				0B8967E8286A1F0E000D155F /* NetworkRequestMethod.swift */,
+				0B8967EA286A2228000D155F /* NetworkError.swift */,
+			);
+			path = Client;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
