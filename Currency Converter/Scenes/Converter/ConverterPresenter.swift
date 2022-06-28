@@ -18,4 +18,10 @@ final class ConverterPresenter: ConverterPresentable {
     ) {
         self.view = view
     }
+    
+    // MARK: Converter Presentable
+    func viewDidLoad() {
+        view.setTitle(Consts.Scenes.Converter.title)
+        view.setBalanceTitle(Consts.Scenes.Converter.balanceTitle)
+    }
 }

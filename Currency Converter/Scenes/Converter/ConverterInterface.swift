@@ -8,7 +8,12 @@
 import Foundation
 
 // MARK: - Converter View
-protocol ConverterView: AnyObject {}
+protocol ConverterView: AnyObject {
+    func setTitle(_ title: String)
+    func setBalanceTitle(_ title: String)
+}
 
 // MARK: - Converter Presentable
-protocol ConverterPresentable {}
+protocol ConverterPresentable {
+    func viewDidLoad()
+}
