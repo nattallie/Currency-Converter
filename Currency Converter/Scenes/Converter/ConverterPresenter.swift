@@ -20,6 +20,8 @@ final class ConverterPresenter: ConverterPresentable {
     private unowned let view: ConverterView
     private let viewModel: ConverterViewModel
     
+    private var lastSelectedCurrencyInput: CurrencyInputType? = nil
+    
     // MARK: Initializers
     init(
         view: ConverterView,
@@ -47,12 +49,16 @@ final class ConverterPresenter: ConverterPresentable {
         return viewModel.accountItems[index].currency.rawValue
     }
     
-    func didTapCurrencyButton() {
+    func didTapCurrencyButton(inputType: CurrencyInputType) {
+        lastSelectedCurrencyInput = inputType
         view.showCurrencySelectorPopUp()
     }
     
     func didSelectCurrency(_ index: Int) {
         view.dismissCurrencySelectorPopUp()
+        if let lastSelected = lastSelectedCurrencyInput {
+            view.setCurrentCurrency(viewModel.accountItems[index].currency, inputType: lastSelected)
+        }
     }
     
     func didTapSubmitButton() {

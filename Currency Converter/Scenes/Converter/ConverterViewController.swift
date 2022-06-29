@@ -274,6 +274,15 @@ extension ConverterViewController: ConverterView {
         currencyExchangeLabel.text = title
     }
     
+    func setCurrentCurrency(_ currency: Currency, inputType: CurrencyInputType) {
+        switch inputType {
+        case .sell:
+            sellInput.configure(currency: currency)
+        case .receive:
+            receiveInput.configure(currency: currency)
+        }
+    }
+    
     func showCurrencySelectorPopUp() {
         present(pickerWrapper, animated: true)
     }
@@ -324,6 +333,10 @@ extension ConverterViewController: CurrencyInputDelegate {
     }
     
     func didTapCurrencyButton(sender: CurrencyInput) {
-        presenter.didTapCurrencyButton()
+        if sender == sellInput {
+            presenter.didTapCurrencyButton(inputType: .sell)
+        } else {
+            presenter.didTapCurrencyButton(inputType: .receive)
+        }
     }
 }
