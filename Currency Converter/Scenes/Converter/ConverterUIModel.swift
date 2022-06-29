@@ -14,43 +14,45 @@ struct ConverterUIModel {
     
     // MARK: Layout
     struct Layout {
-        static var topContainerCornerRadius: CGFloat { 24 }
+        static let topContainerCornerRadius: CGFloat = 24
         
-        static var marginLeft: CGFloat { 8 }
+        static let marginLeft: CGFloat = 8
         
-        static var titleLabelMarginVer: CGFloat { 64 }
+        static let titleLabelMarginVer: CGFloat = 64
         
-        static var balanceLabelMarginHor: CGFloat { 12 }
-        static var balanceLabelMarginVer: CGFloat { 24 }
+        static let balanceLabelMarginHor: CGFloat = 12
+        static let balanceLabelMarginVer: CGFloat = 24
         
-        static var accountItemsSpacing: CGFloat { 8 }
-        static var accountScrollViewMarginHor: CGFloat { 2 }
-        static var accountItemsMarginVer: CGFloat { 16 }
-        static var accountScrollViewMarginBottom: CGFloat { 32 }
+        static let accountItemsSpacing: CGFloat = 8
+        static let accountScrollViewMarginHor: CGFloat = 2
+        static let accountItemsMarginVer: CGFloat = 16
+        static let accountScrollViewMarginBottom: CGFloat = 32
         
-        static var submitButtonWidthMult: CGFloat { 0.5 }
-        static var submitButtonHeight: CGFloat { 48 }
-        static var submitButtonMarginVer: CGFloat { 40 }
+        static let currencyInputSpacing: CGFloat = 8
+        
+        static let submitButtonWidthMult: CGFloat = 0.5
+        static let submitButtonHeight: CGFloat = 48
+        static let submitButtonMarginVer: CGFloat = 40
         static var submitButtonCornerRadius: CGFloat { submitButtonHeight / 2 }
     }
     
     // MARK: Color
     struct Color {
-        static var background: UIColor { .white }
+        static let background: UIColor = .white
         
-        static var primary: UIColor { .systemBlue }
+        static let primary: UIColor = .systemBlue
         
-        static var title: UIColor { .white }
-        static var balance: UIColor { .white }
+        static let title: UIColor = .white
+        static let balance: UIColor = .white
         
-        static var buttonTitle: UIColor { .white }
-        static var buttonEnabled: UIColor { primary }
-        static var buttonDisabled: UIColor { .lightGray }
+        static let buttonTitle: UIColor = .white
+        static let buttonEnabled: UIColor = primary
+        static let buttonDisabled: UIColor = .lightGray
     }
     
     // MARK: Font
     struct Font {
-        static var title: UIFont { .systemFont(ofSize: 24) }
-        static var balance: UIFont { .systemFont(ofSize: 16) }
+        static let title: UIFont = .systemFont(ofSize: 24) 
+        static let balance: UIFont = .systemFont(ofSize: 16)
     }
 }

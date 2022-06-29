@@ -13,7 +13,7 @@ struct AccountChipViewModel {
     let accountItem: AccountItem
     
     // MARK: Mock
-    static var mock: AccountChipViewModel {
-        .init(accountItem: .init(currency: .EUR, amount: 0))
-    }
+    static var mock: AccountChipViewModel = .init(
+        accountItem: .init(currency: .EUR, amount: 0)
+    )
 }

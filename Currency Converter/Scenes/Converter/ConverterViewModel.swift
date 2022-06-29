@@ -14,14 +14,12 @@ struct ConverterViewModel {
     let numberOfFreeExchange: Int
     
     // MARK: Mock
-    static var mock: ConverterViewModel {
-        return .init(
-            accountItems: [
-                .init(currency: .EUR, amount: 1000),
-                .init(currency: .USD, amount: 0),
-                .init(currency: .JPY, amount: 0)
-            ],
-            numberOfFreeExchange: 5
-        )
-    }
+    static var mock: ConverterViewModel = .init(
+        accountItems: [
+            .init(currency: .EUR, amount: 1000),
+            .init(currency: .USD, amount: 0),
+            .init(currency: .JPY, amount: 0)
+        ],
+        numberOfFreeExchange: 5
+    )
 }
