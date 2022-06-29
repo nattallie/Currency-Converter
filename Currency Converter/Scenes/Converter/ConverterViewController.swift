@@ -239,6 +239,13 @@ final class ConverterViewController: UIViewController {
 
 // MARK: - Converter View
 extension ConverterViewController: ConverterView {
+    // MARK: Properties
+    var sellAmount: Double { sellInput.amount }
+    var receiveAmount: Double { receiveInput.amount }
+    
+    var sellCurrency: Currency { sellInput.selectedCurrency }
+    var receiveCurrency: Currency { receiveInput.selectedCurrency }
+    
     func setTitle(_ title: String) {
         titleLabel.text = title
     }
@@ -272,6 +279,15 @@ extension ConverterViewController: ConverterView {
     
     func setCurrencyExchangeTitle(_ title: String) {
         currencyExchangeLabel.text = title
+    }
+    
+    func setCurrentAmount(_ amount: Double, inputType: CurrencyInputType) {
+        switch inputType {
+        case .sell:
+            sellInput.configure(amount: amount)
+        case .receive:
+            receiveInput.configure(amount: amount)
+        }
     }
     
     func setCurrentCurrency(_ currency: Currency, inputType: CurrencyInputType) {
@@ -328,8 +344,20 @@ extension ConverterViewController: PickerViewWrapperDelegate {
 
 // MARK: - Currency Input Delegate
 extension ConverterViewController: CurrencyInputDelegate {
-    func didChangeAmount(sender: CurrencyInput, amount: String) {
-        print("amount is \(amount)")
+    func didChangeAmount(sender: CurrencyInput, amount: Double, currency: Currency) {
+        if sender == sellInput {
+            presenter.didChangeAmount(
+                inputType: .sell,
+                amount: amount,
+                currency: currency
+            )
+        } else {
+            presenter.didChangeAmount(
+                inputType: .receive,
+                amount: amount,
+                currency: currency
+            )
+        }
     }
     
     func didTapCurrencyButton(sender: CurrencyInput) {

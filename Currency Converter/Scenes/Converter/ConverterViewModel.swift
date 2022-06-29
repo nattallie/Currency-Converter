@@ -12,6 +12,7 @@ struct ConverterViewModel {
     // MARK: Properties
     let accountItems: [AccountItem]
     let numberOfFreeExchange: Int
+    let commissionPercentage: Double
     
     // MARK: Mock
     static var mock: ConverterViewModel = .init(
@@ -20,6 +21,7 @@ struct ConverterViewModel {
             .init(currency: .USD, amount: 0),
             .init(currency: .JPY, amount: 0)
         ],
-        numberOfFreeExchange: 5
+        numberOfFreeExchange: 5,
+        commissionPercentage: 0.7
     )
 }

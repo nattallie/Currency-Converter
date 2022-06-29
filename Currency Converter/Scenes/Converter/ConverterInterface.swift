@@ -9,6 +9,12 @@ import Foundation
 
 // MARK: - Converter View
 protocol ConverterView: AnyObject {
+    var sellAmount: Double { get }
+    var receiveAmount: Double { get }
+    
+    var sellCurrency: Currency { get }
+    var receiveCurrency: Currency { get }
+    
     func setTitle(_ title: String)
     func setBalanceTitle(_ title: String)
     
@@ -16,6 +22,7 @@ protocol ConverterView: AnyObject {
     func updateAccountItem(at index: Int, _ item: AccountItem)
     
     func setCurrencyExchangeTitle(_ title: String)
+    func setCurrentAmount(_ amount: Double, inputType: CurrencyInputType)
     func setCurrentCurrency(_ currency: Currency, inputType: CurrencyInputType)
     func showCurrencySelectorPopUp()
     func dismissCurrencySelectorPopUp()
@@ -36,6 +43,8 @@ protocol ConverterPresentable {
     func viewDidLoad()
     
     func titleForCurrency(at index: Int) -> String
+    
+    func didChangeAmount(inputType: CurrencyInputType, amount: Double, currency: Currency)
     func didTapCurrencyButton(inputType: CurrencyInputType)
     func didSelectCurrency(_ index: Int)
     

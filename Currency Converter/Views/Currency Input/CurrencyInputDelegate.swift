@@ -9,6 +9,6 @@ import Foundation
 
 // MARK: - Currency Input Delegate
 protocol CurrencyInputDelegate: AnyObject {
-    func didChangeAmount(sender: CurrencyInput, amount: String)
+    func didChangeAmount(sender: CurrencyInput, amount: Double, currency: Currency)
     func didTapCurrencyButton(sender: CurrencyInput)
 }

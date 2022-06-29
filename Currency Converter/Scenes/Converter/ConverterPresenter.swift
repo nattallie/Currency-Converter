@@ -19,16 +19,20 @@ final class ConverterPresenter: ConverterPresentable {
     
     private unowned let view: ConverterView
     private let viewModel: ConverterViewModel
+    private let converterUseCase: CurrencyConverterUseCase
     
     private var lastSelectedCurrencyInput: CurrencyInputType? = nil
+    private var numberOfConversions: Int = 0
     
     // MARK: Initializers
     init(
         view: ConverterView,
-        viewModel: ConverterViewModel
+        viewModel: ConverterViewModel,
+        converterUseCase: CurrencyConverterUseCase
     ) {
         self.view = view
         self.viewModel = viewModel
+        self.converterUseCase = converterUseCase
     }
     
     // MARK: Converter Presentable
@@ -49,6 +53,88 @@ final class ConverterPresenter: ConverterPresentable {
         return viewModel.accountItems[index].currency.rawValue
     }
     
+    func didChangeAmount(inputType: CurrencyInputType, amount: Double, currency: Currency) {
+        // start loading
+        var toCurrency: Currency
+        var destinationInput: CurrencyInputType
+        
+        switch inputType {
+        case .sell:
+            toCurrency = view.receiveCurrency
+            destinationInput = .receive
+        case .receive:
+            toCurrency = view.sellCurrency
+            destinationInput = .sell
+        }
+        
+        processConversion(
+            fromAmount: amount,
+            fromCurrency: currency,
+            toCurrency: toCurrency,
+            destinationInput: destinationInput
+        )
+    }
+    
+    private func processConversion(
+        fromAmount: Double,
+        fromCurrency: Currency,
+        toCurrency: Currency,
+        destinationInput: CurrencyInputType
+    ) {
+        Task {
+            await sendConversionCall(
+                fromAmount: fromAmount,
+                fromCurrency: fromCurrency,
+                toCurrency: toCurrency,
+                destinationInput: destinationInput
+            )
+        }
+    }
+    
+    @MainActor private func sendConversionCall(
+        fromAmount: Double,
+        fromCurrency: Currency,
+        toCurrency: Currency,
+        destinationInput: CurrencyInputType
+    ) async {
+        do {
+            let conversionEntity: CurrencyConverterEntity? = try await converterUseCase.fetch(
+                parameters: .init(
+                    fromAmount: fromAmount,
+                    fromCurrency: fromCurrency.rawValue,
+                    toCurrency: toCurrency.rawValue
+                )
+            )
+            
+            guard let conversionEntity = conversionEntity else {
+                // error handling
+                return
+            }
+
+            view.setCurrentAmount(Double(conversionEntity.amount) ?? 0, inputType: destinationInput)
+            
+            view.setButtonActivity(to: isValidConversion(sellAmount: view.sellAmount, currency: view.sellCurrency))
+        } catch {
+            // error handling
+            print(error)
+        }
+    }
+    
+    private func isValidConversion(sellAmount: Double, currency: Currency) -> Bool {
+        guard
+            let accountIndex = viewModel.accountItems.firstIndex(where: { $0.currency == currency } )
+        else {
+            return false
+        }
+        
+        var fee: Double = sellAmount * viewModel.commissionPercentage
+        if numberOfConversions < viewModel.numberOfFreeExchange {
+            fee = 0
+        }
+        
+        return sellAmount <= viewModel.accountItems[accountIndex].amount + fee
+    }
+    
     func didTapCurrencyButton(inputType: CurrencyInputType) {
         lastSelectedCurrencyInput = inputType
         view.showCurrencySelectorPopUp()
@@ -58,10 +144,28 @@ final class ConverterPresenter: ConverterPresentable {
         view.dismissCurrencySelectorPopUp()
         if let lastSelected = lastSelectedCurrencyInput {
             view.setCurrentCurrency(viewModel.accountItems[index].currency, inputType: lastSelected)
+            
+            switch lastSelected {
+            case .sell:
+                processConversion(
+                    fromAmount: view.sellAmount,
+                    fromCurrency: view.sellCurrency,
+                    toCurrency: view.receiveCurrency,
+                    destinationInput: .receive
+                )
+            case .receive:
+                processConversion(
+                    fromAmount: view.receiveAmount,
+                    fromCurrency: view.receiveCurrency,
+                    toCurrency: view.sellCurrency,
+                    destinationInput: .sell
+                )
+            }
         }
     }
     
     func didTapSubmitButton() {
         
+        numberOfConversions += 1
     }
 }

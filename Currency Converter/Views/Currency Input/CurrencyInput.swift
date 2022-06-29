@@ -93,12 +93,12 @@ class CurrencyInput: UIView {
     // MARK: Properties
     weak var delegate: CurrencyInputDelegate?
     
-    var amount: String {
-        inputField.text ?? ""
+    var amount: Double {
+        Double(inputField.text ?? "") ?? 0
     }
     
-    var selectedCurrency: String {
-        currencyLabel.text ?? ""
+    var selectedCurrency: Currency {
+        Currency.init(rawValue: currencyLabel.text ?? "") ?? .EUR
     }
     
     private var model: CurrencyInputModel
@@ -182,7 +182,7 @@ class CurrencyInput: UIView {
 // MARK: - Text Field Delegate
 extension CurrencyInput: UITextFieldDelegate {
     @objc private func textFieldEditingDone() {
-        delegate?.didChangeAmount(sender: self, amount: inputField.text ?? "")
+        delegate?.didChangeAmount(sender: self, amount: amount, currency: selectedCurrency)
         inputField.resignFirstResponder()
     }
 }

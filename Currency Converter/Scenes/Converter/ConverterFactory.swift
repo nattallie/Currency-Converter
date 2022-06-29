@@ -18,7 +18,8 @@ struct ConverterFactory {
         
         let presenter: ConverterPresenter = .init(
             view: viewController,
-            viewModel: viewModel
+            viewModel: viewModel,
+            converterUseCase: CurrencyConverterUseCaseImpl()
         )
         
         viewController.presenter = presenter
