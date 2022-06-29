@@ -1,5 +1,5 @@
 //
-//  CurrencyChip.swift
+//  AccountChip.swift
 //  Currency Converter
 //
 //  Created by Nata Khurtsidze on 28.06.22.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-// MARK: Currency Chip
-class CurrencyChip: UIView {
+// MARK: Account Chip
+class AccountChip: UIView {
     // MARK: Subviews
     private let containerView: UIView = {
         let view: UIView = .init()
@@ -24,7 +24,7 @@ class CurrencyChip: UIView {
         return stack
     }()
     
-    private let currencyLabel: UILabel = {
+    private let accountLabel: UILabel = {
         let label: UILabel = .init()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -32,8 +32,8 @@ class CurrencyChip: UIView {
     
     // MARK: Initializers
     init(
-        model: CurrencyChipModel = .init(),
-        viewModel: CurrencyChipViewModel = .mock
+        model: AccountChipModel = .init(),
+        viewModel: AccountChipViewModel = .mock
     ) {
         super.init(frame: .zero)
         
@@ -47,22 +47,22 @@ class CurrencyChip: UIView {
     }
     
     // MARK: Configure
-    func configure(model: CurrencyChipModel) {
+    func configure(model: AccountChipModel) {
         containerView.backgroundColor = model.color.backgroundColor
         containerView.layer.cornerRadius = model.layout.cornerRadius
         containerView.layer.borderWidth = model.layout.borderWidth
         containerView.layer.borderColor = model.color.borderColor.cgColor
         
-        currencyLabel.textColor = model.color.text
-        currencyLabel.font = model.font.text
+        accountLabel.textColor = model.color.text
+        accountLabel.font = model.font.text
     }
     
-    func configure(viewModel: CurrencyChipViewModel) {
-        currencyLabel.text = viewModel.accountItem.stringRepresentable
+    func configure(viewModel: AccountChipViewModel) {
+        accountLabel.text = viewModel.accountItem.stringRepresentable
     }
 
     // MARK: Set Up
-    private func setup(model: CurrencyChipModel) {
+    private func setup(model: AccountChipModel) {
         backgroundColor = .clear
         addSubviews()
         addConstraints(model: model)
@@ -71,10 +71,10 @@ class CurrencyChip: UIView {
     private func addSubviews() {
         addSubview(containerView)
         addSubview(containerStack)
-        containerStack.addArrangedSubview(currencyLabel)
+        containerStack.addArrangedSubview(accountLabel)
     }
     
-    private func addConstraints(model: CurrencyChipModel) {
+    private func addConstraints(model: AccountChipModel) {
         NSLayoutConstraint.activate(containerView.fillSuperView())
         
         NSLayoutConstraint.activate(

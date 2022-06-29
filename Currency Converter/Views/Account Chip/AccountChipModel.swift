@@ -1,5 +1,5 @@
 //
-//  CurrencyChipModel.swift
+//  AccountChipModel.swift
 //  Currency Converter
 //
 //  Created by Nata Khurtsidze on 28.06.22.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-// MARK: - Currency Chip Model
-struct CurrencyChipModel {
+// MARK: - Account Chip Model
+struct AccountChipModel {
     // MARK: Properties
     var layout: Layout = .init()
     var color: Color = .init()

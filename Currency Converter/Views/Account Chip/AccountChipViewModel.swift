@@ -1,5 +1,5 @@
 //
-//  CurrencyChipViewModel.swift
+//  AccountChipViewModel.swift
 //  Currency Converter
 //
 //  Created by Nata Khurtsidze on 28.06.22.
@@ -7,13 +7,13 @@
 
 import Foundation
 
-// MARK: - Currency Chip View Model
-struct CurrencyChipViewModel {
+// MARK: - Account Chip View Model
+struct AccountChipViewModel {
     // MARK: Properties
     let accountItem: AccountItem
     
     // MARK: Mock
-    static var mock: CurrencyChipViewModel {
+    static var mock: AccountChipViewModel {
         .init(accountItem: .init(currency: .EUR, amount: 0))
     }
 }

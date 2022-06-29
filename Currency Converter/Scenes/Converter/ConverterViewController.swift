@@ -36,14 +36,14 @@ final class ConverterViewController: UIViewController {
         return label
     }()
     
-    private let currencyItemsScrollView: UIScrollView = {
+    private let accountItemsScrollView: UIScrollView = {
         let scrollView: UIScrollView = .init()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.showsHorizontalScrollIndicator = false
         return scrollView
     }()
     
-    private let currencyItemsStack: UIStackView = {
+    private let accountItemsStack: UIStackView = {
         let stack: UIStackView = .init()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .horizontal
@@ -75,7 +75,7 @@ final class ConverterViewController: UIViewController {
         return button
     }()
     
-    private var currencyChips: [CurrencyChip] = []
+    private var accountChips: [AccountChip] = []
 
     // MARK: Properties
     private typealias Model = ConverterUIModel
@@ -102,9 +102,9 @@ final class ConverterViewController: UIViewController {
         
         topContainer.addSubview(titleLabel)
         topContainer.addSubview(balanceLabel)
-        topContainer.addSubview(currencyItemsScrollView)
+        topContainer.addSubview(accountItemsScrollView)
         
-        currencyItemsScrollView.addSubview(currencyItemsStack)
+        accountItemsScrollView.addSubview(accountItemsStack)
         
         view.addSubview(submitButton)
     }
@@ -122,17 +122,17 @@ final class ConverterViewController: UIViewController {
             balanceLabel.leadingConstraint(toView: topContainer, constant: Model.Layout.balanceLabelMarginHor),
             balanceLabel.trailingConstraint(toView: topContainer, relation: .lessThanOrEqual,constant: -Model.Layout.balanceLabelMarginHor),
             
-            currencyItemsScrollView.leadingConstraint(toView: topContainer, constant: Model.Layout.accountScrollViewMarginHor),
-            currencyItemsScrollView.trailingConstraint(toView: topContainer, constant: -Model.Layout.accountScrollViewMarginHor),
-            currencyItemsScrollView.topConstraint(toView: balanceLabel, attribute: .bottom, constant: Model.Layout.accountItemsMarginVer),
-            currencyItemsScrollView.heightConstraint(toView: currencyItemsStack),
+            accountItemsScrollView.leadingConstraint(toView: topContainer, constant: Model.Layout.accountScrollViewMarginHor),
+            accountItemsScrollView.trailingConstraint(toView: topContainer, constant: -Model.Layout.accountScrollViewMarginHor),
+            accountItemsScrollView.topConstraint(toView: balanceLabel, attribute: .bottom, constant: Model.Layout.accountItemsMarginVer),
+            accountItemsScrollView.heightConstraint(toView: accountItemsStack),
             
-            currencyItemsStack.leadingConstraint(toView: currencyItemsScrollView),
-            currencyItemsStack.trailingConstraint(toView: currencyItemsScrollView),
-            currencyItemsStack.topConstraint(toView: currencyItemsScrollView),
-            currencyItemsStack.bottomConstraint(toView: currencyItemsScrollView),
+            accountItemsStack.leadingConstraint(toView: accountItemsScrollView),
+            accountItemsStack.trailingConstraint(toView: accountItemsScrollView),
+            accountItemsStack.topConstraint(toView: accountItemsScrollView),
+            accountItemsStack.bottomConstraint(toView: accountItemsScrollView),
             
-            topContainer.bottomConstraint(toView: currencyItemsScrollView, constant: Model.Layout.accountScrollViewMarginBottom),
+            topContainer.bottomConstraint(toView: accountItemsScrollView, constant: Model.Layout.accountScrollViewMarginBottom),
             
             submitButton.centerXConstraint(toView: view),
             submitButton.widthConstraint(toView: view, multiplier: Model.Layout.submitButtonWidthMult),
@@ -153,26 +153,26 @@ extension ConverterViewController: ConverterView {
     }
     
     func setAccountItems(_ items: [AccountItem]) {
-        currencyChips.forEach { $0.removeFromSuperview() }
+        accountChips.forEach { $0.removeFromSuperview() }
         
-        currencyChips.removeAll()
+        accountChips.removeAll()
         
         items.forEach { item in
-            let newCurrencyItem: CurrencyChip = {
-                let item: CurrencyChip = .init(viewModel: .init(accountItem: item))
+            let newAccountItem: AccountChip = {
+                let item: AccountChip = .init(viewModel: .init(accountItem: item))
                 item.translatesAutoresizingMaskIntoConstraints = false
                 return item
             }()
             
-            currencyChips.append(newCurrencyItem)
-            currencyItemsStack.addArrangedSubview(newCurrencyItem)
+            accountChips.append(newAccountItem)
+            accountItemsStack.addArrangedSubview(newAccountItem)
         }
     }
     
     func updateAccountItem(at index: Int, _ item: AccountItem) {
-        guard (0..<currencyChips.count).contains(index) else { return }
+        guard (0..<accountChips.count).contains(index) else { return }
         
-        currencyChips[index].configure(viewModel: .init(accountItem: item))
+        accountChips[index].configure(viewModel: .init(accountItem: item))
     }
     
     func showCurrencySelectorPopUp() {

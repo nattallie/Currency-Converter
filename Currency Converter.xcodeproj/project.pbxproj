@@ -33,9 +33,9 @@
 		0BDE0319286C3645000FED12 /* PickerViewWrapperController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDE0318286C3645000FED12 /* PickerViewWrapperController.swift */; };
 		0BDE031B286C378C000FED12 /* PickerViewWrapperDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDE031A286C378C000FED12 /* PickerViewWrapperDelegate.swift */; };
 		0BDE031D286C37D7000FED12 /* PickerViewWrapperUIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDE031C286C37D7000FED12 /* PickerViewWrapperUIModel.swift */; };
-		0BF23637286ADD6F00444B31 /* CurrencyChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF23636286ADD6F00444B31 /* CurrencyChip.swift */; };
-		0BF23639286ADD9900444B31 /* CurrencyChipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF23638286ADD9900444B31 /* CurrencyChipModel.swift */; };
-		0BF2363B286ADDA200444B31 /* CurrencyChipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF2363A286ADDA200444B31 /* CurrencyChipViewModel.swift */; };
+		0BF23637286ADD6F00444B31 /* AccountChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF23636286ADD6F00444B31 /* AccountChip.swift */; };
+		0BF23639286ADD9900444B31 /* AccountChipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF23638286ADD9900444B31 /* AccountChipModel.swift */; };
+		0BF2363B286ADDA200444B31 /* AccountChipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF2363A286ADDA200444B31 /* AccountChipViewModel.swift */; };
 		0BF2363E286ADE9800444B31 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF2363D286ADE9800444B31 /* Currency.swift */; };
 		0BF23640286ADF3100444B31 /* AccountItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF2363F286ADF3100444B31 /* AccountItem.swift */; };
 /* End PBXBuildFile section */
@@ -69,9 +69,9 @@
 		0BDE0318286C3645000FED12 /* PickerViewWrapperController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewWrapperController.swift; sourceTree = "<group>"; };
 		0BDE031A286C378C000FED12 /* PickerViewWrapperDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewWrapperDelegate.swift; sourceTree = "<group>"; };
 		0BDE031C286C37D7000FED12 /* PickerViewWrapperUIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewWrapperUIModel.swift; sourceTree = "<group>"; };
-		0BF23636286ADD6F00444B31 /* CurrencyChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyChip.swift; sourceTree = "<group>"; };
-		0BF23638286ADD9900444B31 /* CurrencyChipModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyChipModel.swift; sourceTree = "<group>"; };
-		0BF2363A286ADDA200444B31 /* CurrencyChipViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyChipViewModel.swift; sourceTree = "<group>"; };
+		0BF23636286ADD6F00444B31 /* AccountChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountChip.swift; sourceTree = "<group>"; };
+		0BF23638286ADD9900444B31 /* AccountChipModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountChipModel.swift; sourceTree = "<group>"; };
+		0BF2363A286ADDA200444B31 /* AccountChipViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountChipViewModel.swift; sourceTree = "<group>"; };
 		0BF2363D286ADE9800444B31 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		0BF2363F286ADF3100444B31 /* AccountItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -228,21 +228,21 @@
 		0BF23634286ADC1E00444B31 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0BF23635286ADD1C00444B31 /* Currency Chip */,
+				0BF23635286ADD1C00444B31 /* Account Chip */,
 				0BBC9BCD286B3762006BC1C9 /* Currency Input */,
 				0BDE0317286C360A000FED12 /* Picker View Wrapper */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		0BF23635286ADD1C00444B31 /* Currency Chip */ = {
+		0BF23635286ADD1C00444B31 /* Account Chip */ = {
 			isa = PBXGroup;
 			children = (
-				0BF23636286ADD6F00444B31 /* CurrencyChip.swift */,
-				0BF2363A286ADDA200444B31 /* CurrencyChipViewModel.swift */,
-				0BF23638286ADD9900444B31 /* CurrencyChipModel.swift */,
+				0BF23636286ADD6F00444B31 /* AccountChip.swift */,
+				0BF2363A286ADDA200444B31 /* AccountChipViewModel.swift */,
+				0BF23638286ADD9900444B31 /* AccountChipModel.swift */,
 			);
-			path = "Currency Chip";
+			path = "Account Chip";
 			sourceTree = "<group>";
 		};
 		0BF2363C286ADE8500444B31 /* Shared Models */ = {
@@ -340,7 +340,7 @@
 				0B8967E4286A1D0E000D155F /* NetworkClient.swift in Sources */,
 				0BF23640286ADF3100444B31 /* AccountItem.swift in Sources */,
 				0B6A04D52868F0EA007B89E0 /* ConverterPresenter.swift in Sources */,
-				0BF23639286ADD9900444B31 /* CurrencyChipModel.swift in Sources */,
+				0BF23639286ADD9900444B31 /* AccountChipModel.swift in Sources */,
 				0B8967EB286A2228000D155F /* NetworkError.swift in Sources */,
 				0BDE0319286C3645000FED12 /* PickerViewWrapperController.swift in Sources */,
 				0B6A04B52868D74C007B89E0 /* SceneDelegate.swift in Sources */,
@@ -348,9 +348,9 @@
 				0BBC9BD5286B37A5006BC1C9 /* CurrencyInputDelegate.swift in Sources */,
 				0BF2363E286ADE9800444B31 /* Currency.swift in Sources */,
 				0BBC9BCF286B3771006BC1C9 /* CurrencyInput.swift in Sources */,
-				0BF23637286ADD6F00444B31 /* CurrencyChip.swift in Sources */,
+				0BF23637286ADD6F00444B31 /* AccountChip.swift in Sources */,
 				0B8967F1286A3CEF000D155F /* CurrencyConverterUseCase.swift in Sources */,
-				0BF2363B286ADDA200444B31 /* CurrencyChipViewModel.swift in Sources */,
+				0BF2363B286ADDA200444B31 /* AccountChipViewModel.swift in Sources */,
 				0BBC9BD1286B3786006BC1C9 /* CurrencyInputViewModel.swift in Sources */,
 				0B6A66F0286B265F00B7A793 /* ConverterViewModel.swift in Sources */,
 			);
