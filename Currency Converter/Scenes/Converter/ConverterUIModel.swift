@@ -23,9 +23,10 @@ struct ConverterUIModel {
         static var balanceLabelMarginHor: CGFloat { 12 }
         static var balanceLabelMarginVer: CGFloat { 24 }
         
-        static var currencyItemsSpacing: CGFloat { 8 }
-        static var currencyItemsMarginVer: CGFloat { 16 }
-        static var currencyScrollViewMarginBottom: CGFloat { 32 }
+        static var accountItemsSpacing: CGFloat { 8 }
+        static var accountScrollViewMarginHor: CGFloat { 2 }
+        static var accountItemsMarginVer: CGFloat { 16 }
+        static var accountScrollViewMarginBottom: CGFloat { 32 }
         
         static var submitButtonWidthMult: CGFloat { 0.5 }
         static var submitButtonHeight: CGFloat { 48 }

@@ -1,5 +1,5 @@
 //
-//  CurrencyItem.swift
+//  AccountItem.swift
 //  Currency Converter
 //
 //  Created by Nata Khurtsidze on 28.06.22.
@@ -7,8 +7,8 @@
 
 import Foundation
 
-// MARK: - Currency Item
-struct CurrencyItem {
+// MARK: - Account Item
+struct AccountItem {
     // MARK: Properties
     let currency: Currency
     let amount: Double

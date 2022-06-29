@@ -12,8 +12,11 @@ protocol ConverterView: AnyObject {
     func setTitle(_ title: String)
     func setBalanceTitle(_ title: String)
     
-    func setCurrencyItems(_ items: [CurrencyItem])
-    func updateCurrencyItem(at index: Int, _ item: CurrencyItem)
+    func setAccountItems(_ items: [AccountItem])
+    func updateAccountItem(at index: Int, _ item: AccountItem)
+    
+    func showCurrencySelectorPopUp()
+    func dismissCurrencySelectorPopUp()
     
     func setButtonTitle(_ title: String)
     func setButtonActivity(to isEnabled: Bool)
@@ -21,7 +24,13 @@ protocol ConverterView: AnyObject {
 
 // MARK: - Converter Presentable
 protocol ConverterPresentable {
+    var numberOfCurrencies: Int { get }
+    
     func viewDidLoad()
+    
+    func titleForCurrency(at index: Int) -> String
+    func didTapCurrencyButton()
+    func didSelectCurrency(_ index: Int)
     
     func didTapSubmitButton()
 }

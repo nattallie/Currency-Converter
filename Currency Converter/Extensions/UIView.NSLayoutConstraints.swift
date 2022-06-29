@@ -181,6 +181,7 @@ extension UIView {
     // MARK: - Width
     public func widthConstraint(
         toView view: UIView? = nil,
+        attribute attr2: NSLayoutConstraint.Attribute = .width,
         relation: NSLayoutConstraint.Relation = .equal,
         constant: CGFloat = 0.0,
         multiplier: CGFloat = 1.0
@@ -188,7 +189,7 @@ extension UIView {
         return createConstraint(
             toView: view,
             attribute: .width,
-            attribute: .width,
+            attribute: attr2,
             relation: relation,
             constant: constant,
             multiplier: multiplier
@@ -199,6 +200,7 @@ extension UIView {
     // MARK: - Height
     public func heightConstraint(
         toView view: UIView? = nil,
+        attribute attr2: NSLayoutConstraint.Attribute = .height,
         relation: NSLayoutConstraint.Relation = .equal,
         constant: CGFloat = 0.0,
         multiplier: CGFloat = 1.0
@@ -206,7 +208,7 @@ extension UIView {
         return createConstraint(
             toView: view,
             attribute: .height,
-            attribute: .height,
+            attribute: attr2,
             relation: relation,
             constant: constant,
             multiplier: multiplier

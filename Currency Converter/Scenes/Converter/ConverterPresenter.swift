@@ -10,6 +10,8 @@ import Foundation
 // MARK: - Converter Presenter
 final class ConverterPresenter: ConverterPresentable {
     // MARK: Properties
+    var numberOfCurrencies: Int { viewModel.accountItems.count }
+    
     private unowned let view: ConverterView
     private let viewModel: ConverterViewModel
     
@@ -26,9 +28,25 @@ final class ConverterPresenter: ConverterPresentable {
     func viewDidLoad() {
         view.setTitle(Consts.Scenes.Converter.title)
         view.setBalanceTitle(Consts.Scenes.Converter.balanceTitle)
-        view.setCurrencyItems(viewModel.currencyItems)
+        view.setAccountItems(viewModel.accountItems)
         view.setButtonTitle(Consts.Scenes.Converter.converterButtonTitle)
         view.setButtonActivity(to: true)
+    }
+    
+    func titleForCurrency(at index: Int) -> String {
+        guard (0..<viewModel.accountItems.count).contains(index) else {
+            fatalError()
+        }
+        
+        return viewModel.accountItems[index].currency.rawValue
+    }
+    
+    func didTapCurrencyButton() {
+        view.showCurrencySelectorPopUp()
+    }
+    
+    func didSelectCurrency(_ index: Int) {
+        view.dismissCurrencySelectorPopUp()
     }
     
     func didTapSubmitButton() {

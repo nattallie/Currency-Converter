@@ -58,7 +58,7 @@ class CurrencyChip: UIView {
     }
     
     func configure(viewModel: CurrencyChipViewModel) {
-        currencyLabel.text = viewModel.currencyItem.stringRepresentable
+        currencyLabel.text = viewModel.accountItem.stringRepresentable
     }
 
     // MARK: Set Up

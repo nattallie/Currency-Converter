@@ -10,13 +10,13 @@ import Foundation
 // MARK: - Converter View Model
 struct ConverterViewModel {
     // MARK: Properties
-    let currencyItems: [CurrencyItem]
+    let accountItems: [AccountItem]
     let numberOfFreeExchange: Int
     
     // MARK: Mock
     static var mock: ConverterViewModel {
         return .init(
-            currencyItems: [
+            accountItems: [
                 .init(currency: .EUR, amount: 1000),
                 .init(currency: .USD, amount: 0),
                 .init(currency: .JPY, amount: 0)
