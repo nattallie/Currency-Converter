@@ -15,6 +15,7 @@ protocol ConverterView: AnyObject {
     func setAccountItems(_ items: [AccountItem])
     func updateAccountItem(at index: Int, _ item: AccountItem)
     
+    func setCurrencyExchangeTitle(_ title: String)
     func showCurrencySelectorPopUp()
     func dismissCurrencySelectorPopUp()
     
@@ -25,6 +26,11 @@ protocol ConverterView: AnyObject {
 // MARK: - Converter Presentable
 protocol ConverterPresentable {
     var numberOfCurrencies: Int { get }
+    var defaultCurrency: Currency { get }
+    var defaultAmount: Double { get }
+    
+    var sellInputTitle: String { get }
+    var receiveInputTitle: String { get }
     
     func viewDidLoad()
     

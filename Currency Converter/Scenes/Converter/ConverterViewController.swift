@@ -65,6 +65,68 @@ final class ConverterViewController: UIViewController {
         return pickerWrapper
     }()
     
+    private let currencyExchangeLabel: UILabel = {
+        let label: UILabel = .init()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = Model.Color.currencyExchange
+        label.font = Model.Font.currencyExchange
+        return label
+    }()
+    
+    private let currencyInputStack: UIStackView = {
+        let stack: UIStackView = .init()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .vertical
+        stack.spacing = Model.Layout.currencyInputStackSpacing
+        return stack
+    }()
+    
+    private lazy var sellInput: CurrencyInput = {
+        let model: CurrencyInputModel = {
+            var model: CurrencyInputModel = .init()
+            model.color.inputText = Model.Color.sellInputText
+            return model
+        }()
+        
+        let input: CurrencyInput = .init(
+            model: model,
+            viewModel: .init(
+                icon: UIImage(systemName: "arrow.up.circle"),
+                title: presenter.sellInputTitle,
+                amount: presenter.defaultAmount,
+                selectedCurrency: presenter.defaultCurrency
+            )
+        )
+        
+        input.translatesAutoresizingMaskIntoConstraints = false
+        input.delegate = self
+        
+        return input
+    }()
+    
+    private lazy var receiveInput: CurrencyInput = {
+        let model: CurrencyInputModel = {
+            var model: CurrencyInputModel = .init()
+            model.color.inputText = Model.Color.receiveInputText
+            return model
+        }()
+        
+        let input: CurrencyInput = .init(
+            model: model,
+            viewModel: .init(
+                icon: UIImage(systemName: "arrow.down.circle"),
+                title: presenter.receiveInputTitle,
+                amount: presenter.defaultAmount,
+                selectedCurrency: presenter.defaultCurrency
+            )
+        )
+        
+        input.translatesAutoresizingMaskIntoConstraints = false
+        input.delegate = self
+        
+        return input
+    }()
+    
     private lazy var submitButton: UIButton = {
         let button: UIButton = .init()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -106,6 +168,11 @@ final class ConverterViewController: UIViewController {
         
         accountItemsScrollView.addSubview(accountItemsStack)
         
+        view.addSubview(currencyExchangeLabel)
+        view.addSubview(currencyInputStack)
+        currencyInputStack.addArrangedSubview(sellInput)
+        currencyInputStack.addArrangedSubview(receiveInput)
+        
         view.addSubview(submitButton)
     }
     
@@ -118,13 +185,21 @@ final class ConverterViewController: UIViewController {
             titleLabel.topConstraint(toView: topContainer, constant: Model.Layout.titleLabelMarginVer),
             titleLabel.centerXConstraint(toView: topContainer),
             
-            balanceLabel.topConstraint(toView: titleLabel, attribute: .bottom, constant: Model.Layout.balanceLabelMarginVer),
             balanceLabel.leadingConstraint(toView: topContainer, constant: Model.Layout.balanceLabelMarginHor),
-            balanceLabel.trailingConstraint(toView: topContainer, relation: .lessThanOrEqual,constant: -Model.Layout.balanceLabelMarginHor),
+            balanceLabel.trailingConstraint(
+                toView: topContainer,
+                relation: .lessThanOrEqual,
+                constant: -Model.Layout.balanceLabelMarginHor
+            ),
+            balanceLabel.topConstraint(toView: titleLabel, attribute: .bottom, constant: Model.Layout.balanceLabelMarginVer),
             
             accountItemsScrollView.leadingConstraint(toView: topContainer, constant: Model.Layout.accountScrollViewMarginHor),
             accountItemsScrollView.trailingConstraint(toView: topContainer, constant: -Model.Layout.accountScrollViewMarginHor),
-            accountItemsScrollView.topConstraint(toView: balanceLabel, attribute: .bottom, constant: Model.Layout.accountItemsMarginVer),
+            accountItemsScrollView.topConstraint(
+                toView: balanceLabel,
+                attribute: .bottom,
+                constant: Model.Layout.accountItemsMarginVer
+            ),
             accountItemsScrollView.heightConstraint(toView: accountItemsStack),
             
             accountItemsStack.leadingConstraint(toView: accountItemsScrollView),
@@ -133,6 +208,26 @@ final class ConverterViewController: UIViewController {
             accountItemsStack.bottomConstraint(toView: accountItemsScrollView),
             
             topContainer.bottomConstraint(toView: accountItemsScrollView, constant: Model.Layout.accountScrollViewMarginBottom),
+            
+            currencyExchangeLabel.leadingConstraint(toView: view, constant: Model.Layout.currencyExchangeLabelMarginHor),
+            currencyExchangeLabel.trailingConstraint(
+                toView: view,
+                relation: .lessThanOrEqual,
+                constant: -Model.Layout.currencyExchangeLabelMarginHor
+            ),
+            currencyExchangeLabel.topConstraint(
+                toView: topContainer,
+                attribute: .bottom,
+                constant: Model.Layout.currencyExchangeLabelMarginVer
+            ),
+            
+            currencyInputStack.leadingConstraint(toView: view, constant: Model.Layout.currencyInputStackMarginHor),
+            currencyInputStack.trailingConstraint(toView: view, constant: -Model.Layout.currencyInputStackMarginHor),
+            currencyInputStack.topConstraint(
+                toView: currencyExchangeLabel,
+                attribute: .bottom,
+                constant: Model.Layout.currencyInputStackMarginVer
+            ),
             
             submitButton.centerXConstraint(toView: view),
             submitButton.widthConstraint(toView: view, multiplier: Model.Layout.submitButtonWidthMult),
@@ -173,6 +268,10 @@ extension ConverterViewController: ConverterView {
         guard (0..<accountChips.count).contains(index) else { return }
         
         accountChips[index].configure(viewModel: .init(accountItem: item))
+    }
+    
+    func setCurrencyExchangeTitle(_ title: String) {
+        currencyExchangeLabel.text = title
     }
     
     func showCurrencySelectorPopUp() {
@@ -220,6 +319,10 @@ extension ConverterViewController: PickerViewWrapperDelegate {
 
 // MARK: - Currency Input Delegate
 extension ConverterViewController: CurrencyInputDelegate {
+    func didChangeAmount(sender: CurrencyInput, amount: String) {
+        print("amount is \(amount)")
+    }
+    
     func didTapCurrencyButton(sender: CurrencyInput) {
         presenter.didTapCurrencyButton()
     }

@@ -11,6 +11,11 @@ import Foundation
 final class ConverterPresenter: ConverterPresentable {
     // MARK: Properties
     var numberOfCurrencies: Int { viewModel.accountItems.count }
+    var defaultCurrency: Currency { viewModel.accountItems.first?.currency ?? Currency.EUR }
+    var defaultAmount: Double { 0 }
+    
+    var sellInputTitle: String { Consts.Scenes.Converter.sellTitle }
+    var receiveInputTitle: String { Consts.Scenes.Converter.receiveTitle }
     
     private unowned let view: ConverterView
     private let viewModel: ConverterViewModel
@@ -29,6 +34,7 @@ final class ConverterPresenter: ConverterPresentable {
         view.setTitle(Consts.Scenes.Converter.title)
         view.setBalanceTitle(Consts.Scenes.Converter.balanceTitle)
         view.setAccountItems(viewModel.accountItems)
+        view.setCurrencyExchangeTitle(Consts.Scenes.Converter.exchangeTitle)
         view.setButtonTitle(Consts.Scenes.Converter.converterButtonTitle)
         view.setButtonActivity(to: true)
     }

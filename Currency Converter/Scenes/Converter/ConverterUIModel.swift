@@ -28,7 +28,12 @@ struct ConverterUIModel {
         static let accountItemsMarginVer: CGFloat = 16
         static let accountScrollViewMarginBottom: CGFloat = 32
         
-        static let currencyInputSpacing: CGFloat = 8
+        static var currencyExchangeLabelMarginHor: CGFloat { balanceLabelMarginHor }
+        static let currencyExchangeLabelMarginVer: CGFloat = 32
+
+        static let currencyInputStackSpacing: CGFloat = 8
+        static var currencyInputStackMarginHor: CGFloat { currencyExchangeLabelMarginHor }
+        static var currencyInputStackMarginVer: CGFloat = 8
         
         static let submitButtonWidthMult: CGFloat = 0.5
         static let submitButtonHeight: CGFloat = 48
@@ -45,6 +50,10 @@ struct ConverterUIModel {
         static let title: UIColor = .white
         static let balance: UIColor = .white
         
+        static var currencyExchange: UIColor { primary }
+        static let sellInputText: UIColor = .red
+        static let receiveInputText: UIColor = .green
+        
         static let buttonTitle: UIColor = .white
         static let buttonEnabled: UIColor = primary
         static let buttonDisabled: UIColor = .lightGray
@@ -52,7 +61,8 @@ struct ConverterUIModel {
     
     // MARK: Font
     struct Font {
-        static let title: UIFont = .systemFont(ofSize: 24) 
+        static let title: UIFont = .boldSystemFont(ofSize: 24)
         static let balance: UIFont = .systemFont(ofSize: 16)
+        static var currencyExchange: UIFont { balance }
     }
 }

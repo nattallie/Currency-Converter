@@ -43,9 +43,22 @@ class CurrencyInput: UIView {
         let textField: UITextField = .init()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.delegate = self
-        textField.textAlignment = .center
         textField.keyboardType = .decimalPad
+        textField.textAlignment = .center
         textField.borderStyle = .roundedRect
+        textField.textColor = model.color.inputText
+        
+        let doneToolbar: UIToolbar = UIToolbar(
+            frame: CGRect(x: 0, y: 0, width: 300, height: 40)
+        )
+        doneToolbar.barStyle = UIBarStyle.default
+
+        let flexSpace: UIBarButtonItem = .init(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(textFieldEditingDone))
+
+        doneToolbar.items = [flexSpace, done]
+        textField.inputAccessoryView = doneToolbar
+
         return textField
     }()
     
@@ -79,6 +92,7 @@ class CurrencyInput: UIView {
     
     // MARK: Properties
     weak var delegate: CurrencyInputDelegate?
+    
     var amount: String {
         inputField.text ?? ""
     }
@@ -167,6 +181,9 @@ class CurrencyInput: UIView {
 
 // MARK: - Text Field Delegate
 extension CurrencyInput: UITextFieldDelegate {
-    
+    @objc private func textFieldEditingDone() {
+        delegate?.didChangeAmount(sender: self, amount: inputField.text ?? "")
+        inputField.resignFirstResponder()
+    }
 }
 

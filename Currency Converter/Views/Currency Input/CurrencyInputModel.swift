@@ -27,9 +27,7 @@ struct CurrencyInputModel {
         var iconTint: UIColor = .blue
         var inputLabel: UIColor = .blue
         
-        var inputTextPositive: UIColor = .green
-        var inputTextNegative: UIColor = .red
-        var inputTextNeutral: UIColor = .black
+        var inputText: UIColor = .black
     }
     
     // MARK: Font
