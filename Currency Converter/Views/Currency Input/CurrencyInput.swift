@@ -182,8 +182,12 @@ class CurrencyInput: UIView {
 // MARK: - Text Field Delegate
 extension CurrencyInput: UITextFieldDelegate {
     @objc private func textFieldEditingDone() {
-        delegate?.didChangeAmount(sender: self, amount: amount, currency: selectedCurrency)
         inputField.resignFirstResponder()
+        delegate?.didChangeAmount(sender: self, amount: amount, currency: selectedCurrency)
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        delegate?.didBeginAmountEditing(sender: self)
     }
 }
 

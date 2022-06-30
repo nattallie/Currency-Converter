@@ -11,4 +11,5 @@ import Foundation
 protocol CurrencyInputDelegate: AnyObject {
     func didChangeAmount(sender: CurrencyInput, amount: Double, currency: Currency)
     func didTapCurrencyButton(sender: CurrencyInput)
+    func didBeginAmountEditing(sender: CurrencyInput) 
 }

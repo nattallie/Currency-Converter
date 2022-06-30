@@ -11,7 +11,8 @@ import Foundation
 final class ConverterPresenter: ConverterPresentable {
     // MARK: Properties
     var numberOfCurrencies: Int { viewModel.accountItems.count }
-    var defaultCurrency: Currency { viewModel.accountItems.first?.currency ?? Currency.EUR }
+    var sellCurrency: Currency { viewModel.accountItems.first?.currency ?? Currency.EUR }
+    var receiveCurrency: Currency { viewModel.accountItems.last?.currency ?? Currency.EUR }
     var defaultAmount: Double { 0 }
     
     var sellInputTitle: String { Consts.Scenes.Converter.sellTitle }
@@ -128,6 +129,8 @@ final class ConverterPresenter: ConverterPresentable {
             view.setCurrentAmount(Double(conversionEntity.amount) ?? 0, inputType: destinationInput)
             
             view.setButtonActivity(to: isValidConversion(sellAmount: view.sellAmount, currency: view.sellCurrency))
+            
+            view.setCurrencyInputActivity(to: true, inputType: destinationInput)
         } catch {
             view.stopLoading()
             view.setScreenInteraction(to: true)
@@ -171,6 +174,15 @@ final class ConverterPresenter: ConverterPresentable {
             }
         case .none:
             break
+        }
+    }
+    
+    func didTapCurrencyInput(inputType: CurrencyInputType) {
+        switch inputType {
+        case .sell:
+            view.setCurrencyInputActivity(to: false, inputType: .receive)
+        case .receive:
+            view.setCurrencyInputActivity(to: false, inputType: .sell)
         }
     }
     

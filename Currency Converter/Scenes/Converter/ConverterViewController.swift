@@ -99,7 +99,7 @@ final class ConverterViewController: UIViewController {
                 icon: UIImage(systemName: "arrow.up.circle"),
                 title: presenter.sellInputTitle,
                 amount: presenter.defaultAmount,
-                selectedCurrency: presenter.defaultCurrency
+                selectedCurrency: presenter.sellCurrency
             )
         )
         
@@ -122,7 +122,7 @@ final class ConverterViewController: UIViewController {
                 icon: UIImage(systemName: "arrow.down.circle"),
                 title: presenter.receiveInputTitle,
                 amount: presenter.defaultAmount,
-                selectedCurrency: presenter.defaultCurrency
+                selectedCurrency: presenter.receiveCurrency
             )
         )
         
@@ -272,11 +272,9 @@ final class ConverterViewController: UIViewController {
     private func keyboardWillShow(notification: Notification) {
         let keyboardInfo: SystemKeyboardInfo = .init(notification: notification)
         
-        UIView.animate(
-            withDuration: keyboardInfo.animationDuration,
-            delay: 0,
-            options: keyboardInfo.animationOptions,
-            animations: { [weak self] in
+        animateView(
+            keyboardInfo: keyboardInfo,
+            animationCallback: { [weak self] in
                 guard let self = self else { return }
                 
                 self.submitButtonBottomConstraint?.constant = -keyboardInfo.frame.height - Model.Layout.spacing
@@ -285,16 +283,23 @@ final class ConverterViewController: UIViewController {
     }
     
     private func keyboardWillHide(notification: Notification) {
-        let keyboardInfo: SystemKeyboardInfo = .init(notification: notification)
-        
+        animateView(
+            keyboardInfo: .init(notification: notification),
+            animationCallback: { [weak self] in
+                guard let self = self else { return }
+                
+                self.submitButtonBottomConstraint?.constant = -Model.Layout.submitButtonMarginVer
+            }
+        )
+    }
+    
+    private func animateView(keyboardInfo: SystemKeyboardInfo, animationCallback: @escaping () -> Void) {
         UIView.animate(
             withDuration: keyboardInfo.animationDuration,
             delay: 0,
             options: keyboardInfo.animationOptions,
-            animations: { [weak self] in
-                guard let self = self else { return }
-                
-                self.submitButtonBottomConstraint?.constant = -Model.Layout.submitButtonMarginVer
+            animations: {
+                animationCallback()
             }
         )
     }
@@ -309,6 +314,7 @@ extension ConverterViewController: ConverterView {
     var sellCurrency: Currency { sellInput.selectedCurrency }
     var receiveCurrency: Currency { receiveInput.selectedCurrency }
     
+    // MARK: Top container
     func setTitle(_ title: String) {
         titleLabel.text = title
     }
@@ -340,8 +346,18 @@ extension ConverterViewController: ConverterView {
         accountChips[index].configure(viewModel: .init(accountItem: item))
     }
     
+    // MARK: Currency Inputs
     func setCurrencyExchangeTitle(_ title: String) {
         currencyExchangeLabel.text = title
+    }
+    
+    func setCurrencyInputActivity(to isEnabled: Bool, inputType: CurrencyInputType) {
+        switch inputType {
+        case .sell:
+            sellInput.isUserInteractionEnabled = isEnabled
+        case .receive:
+            receiveInput.isUserInteractionEnabled = isEnabled
+        }
     }
     
     func setCurrentAmount(_ amount: Double, inputType: CurrencyInputType) {
@@ -362,6 +378,7 @@ extension ConverterViewController: ConverterView {
         }
     }
     
+    // MARK: Pop Ups and alerts
     func showCurrencySelectorPopUp(selectedCurrencyIndex: Int) {
         pickerWrapper.configure(selectedRow: selectedCurrencyIndex, in: 0)
         present(pickerWrapper, animated: true)
@@ -388,6 +405,7 @@ extension ConverterViewController: ConverterView {
         present(alert, animated: true)
     }
     
+    // MARK: Loaders
     func startLoading() {
         indicatorView.startAnimating()
     }
@@ -400,6 +418,7 @@ extension ConverterViewController: ConverterView {
         view.isUserInteractionEnabled = isInteractive
     }
     
+    // MARK: Button actions
     func setButtonTitle(_ title: String) {
         submitButton.setTitle(title, for: .normal)
     }
@@ -459,6 +478,14 @@ extension ConverterViewController: CurrencyInputDelegate {
             presenter.didTapCurrencyButton(inputType: .sell)
         } else {
             presenter.didTapCurrencyButton(inputType: .receive)
+        }
+    }
+    
+    func didBeginAmountEditing(sender: CurrencyInput)  {
+        if sender == sellInput {
+            presenter.didTapCurrencyInput(inputType: .sell)
+        } else {
+            presenter.didTapCurrencyInput(inputType: .receive)
         }
     }
 }
