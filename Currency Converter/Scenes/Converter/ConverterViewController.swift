@@ -10,6 +10,8 @@ import UIKit
 // MARK: - Converter View Controller
 final class ConverterViewController: UIViewController {
     // MARK: Subviews
+    
+    // MARK: Top Container
     private let topContainer: UIView = {
         let view: UIView = .init()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -58,6 +60,9 @@ final class ConverterViewController: UIViewController {
         return stack
     }()
     
+    private var accountChips: [AccountChip] = []
+    
+    // MARK: Currency Inputs
     private lazy var pickerWrapper: PickerViewWrapperController = {
         let pickerWrapper: PickerViewWrapperController = .init()
         pickerWrapper.delegate = self
@@ -127,6 +132,7 @@ final class ConverterViewController: UIViewController {
         return input
     }()
     
+    // MARK: Submit Button
     private lazy var submitButton: UIButton = {
         let button: UIButton = .init()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -137,7 +143,11 @@ final class ConverterViewController: UIViewController {
         return button
     }()
     
-    private var accountChips: [AccountChip] = []
+    private let indicatorView: UIActivityIndicatorView = {
+        let indicatorView = UIActivityIndicatorView(style: .large)
+        indicatorView.translatesAutoresizingMaskIntoConstraints = false
+        return indicatorView
+    }()
 
     // MARK: Properties
     private typealias Model = ConverterUIModel
@@ -174,6 +184,7 @@ final class ConverterViewController: UIViewController {
         currencyInputStack.addArrangedSubview(receiveInput)
         
         view.addSubview(submitButton)
+        view.addSubview(indicatorView)
     }
     
     private func addConstraints() {
@@ -232,7 +243,10 @@ final class ConverterViewController: UIViewController {
             submitButton.centerXConstraint(toView: view),
             submitButton.widthConstraint(toView: view, multiplier: Model.Layout.submitButtonWidthMult),
             submitButton.heightConstraint(constant: Model.Layout.submitButtonHeight),
-            submitButton.bottomConstraint(toView: view, constant: -Model.Layout.submitButtonMarginVer)
+            submitButton.bottomConstraint(toView: view, constant: -Model.Layout.submitButtonMarginVer),
+            
+            indicatorView.centerXConstraint(toView: view),
+            indicatorView.centerYConstraint(toView: view)
         ])
     }
 }
@@ -299,7 +313,8 @@ extension ConverterViewController: ConverterView {
         }
     }
     
-    func showCurrencySelectorPopUp() {
+    func showCurrencySelectorPopUp(selectedCurrencyIndex: Int) {
+        pickerWrapper.configure(selectedRow: selectedCurrencyIndex, in: 0)
         present(pickerWrapper, animated: true)
     }
     
@@ -322,6 +337,18 @@ extension ConverterViewController: ConverterView {
         }
         
         present(alert, animated: true)
+    }
+    
+    func startLoading() {
+        indicatorView.startAnimating()
+    }
+    
+    func stopLoading() {
+        indicatorView.stopAnimating()
+    }
+    
+    func setScreenInteraction(to isInteractive: Bool) {
+        view.isUserInteractionEnabled = isInteractive
     }
     
     func setButtonTitle(_ title: String) {

@@ -12,7 +12,7 @@ struct PickerViewWrapperUIModel {
     // MARK: Layout
     struct Layout {
         static let containerViewMult: CGFloat = 0.6
-        static let pickerCornerRadis: CGFloat = 12
+        static let pickerCornerRadius: CGFloat = 12
     }
     
     // MARK: Font

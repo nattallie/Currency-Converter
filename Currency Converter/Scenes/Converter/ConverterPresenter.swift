@@ -54,7 +54,6 @@ final class ConverterPresenter: ConverterPresentable {
     }
     
     func didChangeAmount(inputType: CurrencyInputType, amount: Double, currency: Currency) {
-        // start loading
         var toCurrency: Currency
         var destinationInput: CurrencyInputType
         
@@ -97,6 +96,9 @@ final class ConverterPresenter: ConverterPresentable {
         toCurrency: Currency,
         destinationInput: CurrencyInputType
     ) async {
+        view.startLoading()
+        view.setScreenInteraction(to: false)
+        
         do {
             let conversionEntity: CurrencyConverterEntity? = try await converterUseCase.fetch(
                 parameters: .init(
@@ -105,6 +107,9 @@ final class ConverterPresenter: ConverterPresentable {
                     toCurrency: toCurrency.rawValue
                 )
             )
+            
+            view.stopLoading()
+            view.setScreenInteraction(to: true)
             
             guard let conversionEntity = conversionEntity else {
                 view.showError(viewModel: .init(
@@ -119,6 +124,9 @@ final class ConverterPresenter: ConverterPresentable {
             
             view.setButtonActivity(to: isValidConversion(sellAmount: view.sellAmount, currency: view.sellCurrency))
         } catch {
+            view.stopLoading()
+            view.setScreenInteraction(to: true)
+            
             view.showError(viewModel: .init(
                 title: Consts.Common.errorOccured,
                 message: (error as? NetworkError)?.localizedDescription ?? "",
@@ -144,7 +152,21 @@ final class ConverterPresenter: ConverterPresentable {
     
     func didTapCurrencyButton(inputType: CurrencyInputType) {
         lastSelectedCurrencyInput = inputType
-        view.showCurrencySelectorPopUp()
+        
+        switch lastSelectedCurrencyInput {
+        case .sell:
+            let currencyIndex: Int? = viewModel.accountItems.firstIndex(where: { $0.currency == view.sellCurrency } )
+            if let index = currencyIndex {
+                view.showCurrencySelectorPopUp(selectedCurrencyIndex: index)
+            }
+        case .receive:
+            let currencyIndex: Int? = viewModel.accountItems.firstIndex(where: { $0.currency == view.receiveCurrency } )
+            if let index = currencyIndex {
+                view.showCurrencySelectorPopUp(selectedCurrencyIndex: index)
+            }
+        case .none:
+            break
+        }
     }
     
     func didSelectCurrency(_ index: Int) {

@@ -27,7 +27,7 @@ class PickerViewWrapperController: UIViewController {
         pickerView.delegate = self
         pickerView.dataSource = self
         pickerView.clipsToBounds = true
-        pickerView.layer.cornerRadius = Model.Layout.pickerCornerRadis
+        pickerView.layer.cornerRadius = Model.Layout.pickerCornerRadius
         pickerView.backgroundColor = Model.Color.pickerBackground
         return pickerView
     }()
@@ -42,6 +42,11 @@ class PickerViewWrapperController: UIViewController {
         super.viewDidLoad()
     
         setup()
+    }
+    
+    // MARK: Configure
+    func configure(selectedRow: Int, in component: Int) {
+        picker.selectRow(selectedRow, inComponent: component, animated: false)
     }
     
     // MARK: Set Up

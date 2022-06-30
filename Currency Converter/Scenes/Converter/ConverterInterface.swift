@@ -24,10 +24,14 @@ protocol ConverterView: AnyObject {
     func setCurrencyExchangeTitle(_ title: String)
     func setCurrentAmount(_ amount: Double, inputType: CurrencyInputType)
     func setCurrentCurrency(_ currency: Currency, inputType: CurrencyInputType)
-    func showCurrencySelectorPopUp()
+    func showCurrencySelectorPopUp(selectedCurrencyIndex: Int)
     func dismissCurrencySelectorPopUp()
     
     func showError(viewModel: ErrorViewModel)
+    func startLoading()
+    func stopLoading()
+    
+    func setScreenInteraction(to isInteractive: Bool)
     
     func setButtonTitle(_ title: String)
     func setButtonActivity(to isEnabled: Bool)
