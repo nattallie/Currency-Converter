@@ -14,6 +14,17 @@ struct Consts {
         static let baseURL: String = "http://api.evp.lt"
     }
     
+    // MARK: - Common
+    struct Common {
+        static let OK: String = "OK"
+        static let networkError: String = "Network error"
+        static let errorOccured: String = "Error Occured"
+        static let invalidEndpoint: String = "Error is caused because of invalid endpoint"
+        static let invalidURL: String = "Error is caused because of invalid URL"
+        static let invalidResponse: String = "Error is caused because of invalid network response"
+        static let invalidData: String = "Error is caused because of invalid data"
+    }
+    
     // MARK: - Scenes
     struct Scenes {
         // MARK: Converter

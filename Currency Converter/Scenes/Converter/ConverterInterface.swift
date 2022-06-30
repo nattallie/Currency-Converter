@@ -27,6 +27,8 @@ protocol ConverterView: AnyObject {
     func showCurrencySelectorPopUp()
     func dismissCurrencySelectorPopUp()
     
+    func showError(viewModel: ErrorViewModel)
+    
     func setButtonTitle(_ title: String)
     func setButtonActivity(to isEnabled: Bool)
 }

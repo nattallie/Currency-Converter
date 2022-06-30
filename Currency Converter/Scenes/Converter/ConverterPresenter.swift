@@ -107,7 +107,11 @@ final class ConverterPresenter: ConverterPresentable {
             )
             
             guard let conversionEntity = conversionEntity else {
-                // error handling
+                view.showError(viewModel: .init(
+                    title: Consts.Common.errorOccured,
+                    message: Consts.Common.networkError,
+                    actionTitle: Consts.Common.OK
+                ))
                 return
             }
 
@@ -115,8 +119,11 @@ final class ConverterPresenter: ConverterPresentable {
             
             view.setButtonActivity(to: isValidConversion(sellAmount: view.sellAmount, currency: view.sellCurrency))
         } catch {
-            // error handling
-            print(error)
+            view.showError(viewModel: .init(
+                title: Consts.Common.errorOccured,
+                message: (error as? NetworkError)?.localizedDescription ?? "",
+                actionTitle: Consts.Common.OK
+            ))
         }
     }
     

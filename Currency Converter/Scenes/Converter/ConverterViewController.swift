@@ -307,12 +307,30 @@ extension ConverterViewController: ConverterView {
         dismiss(animated: true)
     }
     
+    func showError(viewModel: ErrorViewModel) {
+        let alert = UIAlertController(
+            title: viewModel.title,
+            message: viewModel.message,
+            preferredStyle: .alert
+        )
+        
+        if let actionTitle = viewModel.actionTitle {
+            alert.addAction(UIAlertAction(
+                title: actionTitle,
+                style: .default)
+            )
+        }
+        
+        present(alert, animated: true)
+    }
+    
     func setButtonTitle(_ title: String) {
         submitButton.setTitle(title, for: .normal)
     }
     
     func setButtonActivity(to isEnabled: Bool) {
         submitButton.backgroundColor = isEnabled ? Model.Color.buttonEnabled : Model.Color.buttonDisabled
+        submitButton.isUserInteractionEnabled = isEnabled
     }
 }
 
