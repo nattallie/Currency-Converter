@@ -154,6 +154,8 @@ final class ConverterViewController: UIViewController {
     
     var presenter: ConverterPresentable!
     
+    private var submitButtonBottomConstraint: NSLayoutConstraint?
+    
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -167,6 +169,7 @@ final class ConverterViewController: UIViewController {
         view.backgroundColor = Model.Color.background
         addSubviews()
         addConstraints()
+        addKeyboardObservers()
     }
     
     private func addSubviews() {
@@ -243,11 +246,57 @@ final class ConverterViewController: UIViewController {
             submitButton.centerXConstraint(toView: view),
             submitButton.widthConstraint(toView: view, multiplier: Model.Layout.submitButtonWidthMult),
             submitButton.heightConstraint(constant: Model.Layout.submitButtonHeight),
-            submitButton.bottomConstraint(toView: view, constant: -Model.Layout.submitButtonMarginVer),
+            submitButton.bottomConstraint(toView: view, constant: -Model.Layout.submitButtonMarginVer).reference(in: &submitButtonBottomConstraint),
             
             indicatorView.centerXConstraint(toView: view),
             indicatorView.centerYConstraint(toView: view)
         ])
+    }
+    
+    private func addKeyboardObservers() {
+        NotificationCenter.default.addObserver(
+            forName: UIResponder.keyboardWillShowNotification,
+            object: nil,
+            queue: nil,
+            using: keyboardWillShow
+        )
+        
+        NotificationCenter.default.addObserver(
+            forName: UIResponder.keyboardWillHideNotification,
+            object: nil,
+            queue: nil,
+            using: keyboardWillHide
+        )
+    }
+    
+    private func keyboardWillShow(notification: Notification) {
+        let keyboardInfo: SystemKeyboardInfo = .init(notification: notification)
+        
+        UIView.animate(
+            withDuration: keyboardInfo.animationDuration,
+            delay: 0,
+            options: keyboardInfo.animationOptions,
+            animations: { [weak self] in
+                guard let self = self else { return }
+                
+                self.submitButtonBottomConstraint?.constant = -keyboardInfo.frame.height - Model.Layout.spacing
+            }
+        )
+    }
+    
+    private func keyboardWillHide(notification: Notification) {
+        let keyboardInfo: SystemKeyboardInfo = .init(notification: notification)
+        
+        UIView.animate(
+            withDuration: keyboardInfo.animationDuration,
+            delay: 0,
+            options: keyboardInfo.animationOptions,
+            animations: { [weak self] in
+                guard let self = self else { return }
+                
+                self.submitButtonBottomConstraint?.constant = -Model.Layout.submitButtonMarginVer
+            }
+        )
     }
 }
 

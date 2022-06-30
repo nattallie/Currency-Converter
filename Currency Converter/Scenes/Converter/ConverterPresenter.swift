@@ -57,6 +57,7 @@ final class ConverterPresenter: ConverterPresentable {
         return viewModel.accountItems[index].currency.rawValue
     }
     
+    // MARK: Conversion Processing
     func didChangeAmount(inputType: CurrencyInputType, amount: Double, currency: Currency) {
         var toCurrency: Currency
         var destinationInput: CurrencyInputType
@@ -197,6 +198,7 @@ final class ConverterPresenter: ConverterPresentable {
         }
     }
     
+    // MARK: Submit Button actions
     func didTapSubmitButton() {
         view.setScreenInteraction(to: false)
         
@@ -246,7 +248,10 @@ final class ConverterPresenter: ConverterPresentable {
         if !isFreeConversion {
             let fee: Double = fromAmount * viewModel.commissionPercentage
             viewModel.accountItems[fromIndex].amount -= fee
-            message += .init(format: Consts.Scenes.Converter.feeMessage, String(format: "%.2f", fee), view.sellCurrency.symbol)
+            message += .init(
+                format: Consts.Scenes.Converter.feeMessage,
+                String(format: "%.2f", fee), view.sellCurrency.symbol
+            )
         }
         
         if isFreeConversion {

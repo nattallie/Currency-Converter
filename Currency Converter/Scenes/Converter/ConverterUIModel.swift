@@ -16,7 +16,7 @@ struct ConverterUIModel {
     struct Layout {
         static let topContainerCornerRadius: CGFloat = 24
         
-        static let marginLeft: CGFloat = 8
+        static let spacing: CGFloat = 8
         
         static let titleLabelMarginVer: CGFloat = 64
         
