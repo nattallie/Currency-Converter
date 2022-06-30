@@ -150,7 +150,7 @@ final class ConverterPresenter: ConverterPresentable {
             return false
         }
         
-        var fee: Double = sellAmount * viewModel.commissionPercentage
+        var fee: Double = sellAmount * viewModel.commissionPercentage / 100
         if isFreeConversion {
             fee = 0
         }
@@ -184,10 +184,12 @@ final class ConverterPresenter: ConverterPresentable {
         case .receive:
             view.setCurrencyInputActivity(to: false, inputType: .sell)
         }
+        view.setButtonActivity(to: false)
     }
     
     func didSelectCurrency(_ index: Int) {
         view.dismissCurrencySelectorPopUp()
+        view.setButtonActivity(to: false)
         if let lastSelected = lastSelectedCurrencyInput {
             view.setCurrentCurrency(viewModel.accountItems[index].currency, inputType: lastSelected)
             
@@ -258,7 +260,7 @@ final class ConverterPresenter: ConverterPresentable {
         )
         
         if !isFreeConversion {
-            let fee: Double = fromAmount * viewModel.commissionPercentage
+            let fee: Double = fromAmount * viewModel.commissionPercentage / 100
             viewModel.accountItems[fromIndex].amount -= fee
             message += .init(
                 format: Consts.Scenes.Converter.feeMessage,

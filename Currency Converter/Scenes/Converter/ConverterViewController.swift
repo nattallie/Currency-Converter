@@ -154,6 +154,7 @@ final class ConverterViewController: UIViewController {
     
     var presenter: ConverterPresentable!
     
+    private var titleLabelTopConstraint: NSLayoutConstraint?
     private var submitButtonBottomConstraint: NSLayoutConstraint?
     
     // MARK: Life cycle
@@ -162,6 +163,12 @@ final class ConverterViewController: UIViewController {
         
         setup()
         presenter.viewDidLoad()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        titleLabelTopConstraint?.constant = UIApplication.shared.rootWindow?.safeAreaInsets.top ?? 0
     }
     
     // MARK: Set Up
@@ -196,9 +203,12 @@ final class ConverterViewController: UIViewController {
             topContainer.leadingConstraint(toView: view),
             topContainer.trailingConstraint(toView: view),
             
-            titleLabel.topConstraint(toView: topContainer, constant: Model.Layout.titleLabelMarginVer),
+            titleLabel.topConstraint(
+                toView: topContainer,
+                constant: Model.Layout.titleLabelMarginVer
+            ).reference(in: &titleLabelTopConstraint),
             titleLabel.centerXConstraint(toView: topContainer),
-            
+        
             balanceLabel.leadingConstraint(toView: topContainer, constant: Model.Layout.balanceLabelMarginHor),
             balanceLabel.trailingConstraint(
                 toView: topContainer,
@@ -253,6 +263,7 @@ final class ConverterViewController: UIViewController {
         ])
     }
     
+    // MARK: Keyboard Responsiveness
     private func addKeyboardObservers() {
         NotificationCenter.default.addObserver(
             forName: UIResponder.keyboardWillShowNotification,
@@ -380,6 +391,8 @@ extension ConverterViewController: ConverterView {
     
     // MARK: Pop Ups and alerts
     func showCurrencySelectorPopUp(selectedCurrencyIndex: Int) {
+        let _ = sellInput.resignFirstResponder()
+        let _ = receiveInput.resignFirstResponder()
         pickerWrapper.configure(selectedRow: selectedCurrencyIndex, in: 0)
         present(pickerWrapper, animated: true)
     }

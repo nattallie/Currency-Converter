@@ -18,7 +18,7 @@ struct ConverterUIModel {
         
         static let spacing: CGFloat = 8
         
-        static let titleLabelMarginVer: CGFloat = 64
+        static let titleLabelMarginVer: CGFloat = 20
         
         static let balanceLabelMarginHor: CGFloat = 12
         static let balanceLabelMarginVer: CGFloat = 24

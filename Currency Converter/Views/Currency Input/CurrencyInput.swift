@@ -158,6 +158,10 @@ class CurrencyInput: UIView {
         inputField.text = String(format: "%.2f", amount)
     }
     
+    override func resignFirstResponder() -> Bool {
+        inputField.resignFirstResponder()
+    }
+    
     // MARK: Set Up
     private func setup() {
         backgroundColor = .clear

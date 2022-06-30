@@ -38,6 +38,7 @@
 		0BDE0319286C3645000FED12 /* PickerViewWrapperController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDE0318286C3645000FED12 /* PickerViewWrapperController.swift */; };
 		0BDE031B286C378C000FED12 /* PickerViewWrapperDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDE031A286C378C000FED12 /* PickerViewWrapperDelegate.swift */; };
 		0BDE031D286C37D7000FED12 /* PickerViewWrapperUIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDE031C286C37D7000FED12 /* PickerViewWrapperUIModel.swift */; };
+		0BEF0B41286E58C1009C8200 /* UIApplication.rootWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEF0B40286E58C1009C8200 /* UIApplication.rootWindow.swift */; };
 		0BF23637286ADD6F00444B31 /* AccountChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF23636286ADD6F00444B31 /* AccountChip.swift */; };
 		0BF23639286ADD9900444B31 /* AccountChipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF23638286ADD9900444B31 /* AccountChipModel.swift */; };
 		0BF2363B286ADDA200444B31 /* AccountChipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF2363A286ADDA200444B31 /* AccountChipViewModel.swift */; };
@@ -79,6 +80,7 @@
 		0BDE0318286C3645000FED12 /* PickerViewWrapperController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewWrapperController.swift; sourceTree = "<group>"; };
 		0BDE031A286C378C000FED12 /* PickerViewWrapperDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewWrapperDelegate.swift; sourceTree = "<group>"; };
 		0BDE031C286C37D7000FED12 /* PickerViewWrapperUIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewWrapperUIModel.swift; sourceTree = "<group>"; };
+		0BEF0B40286E58C1009C8200 /* UIApplication.rootWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.rootWindow.swift; sourceTree = "<group>"; };
 		0BF23636286ADD6F00444B31 /* AccountChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountChip.swift; sourceTree = "<group>"; };
 		0BF23638286ADD9900444B31 /* AccountChipModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountChipModel.swift; sourceTree = "<group>"; };
 		0BF2363A286ADDA200444B31 /* AccountChipViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountChipViewModel.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 			children = (
 				0B6A04CD2868E046007B89E0 /* UIView.NSLayoutConstraints.swift */,
 				0BB826EC286DEACE00305D84 /* NSLayoutConstraint.reference.swift */,
+				0BEF0B40286E58C1009C8200 /* UIApplication.rootWindow.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -366,6 +369,7 @@
 				0BB826ED286DEACE00305D84 /* NSLayoutConstraint.reference.swift in Sources */,
 				0BF23640286ADF3100444B31 /* AccountItem.swift in Sources */,
 				0B6A04D52868F0EA007B89E0 /* ConverterPresenter.swift in Sources */,
+				0BEF0B41286E58C1009C8200 /* UIApplication.rootWindow.swift in Sources */,
 				0BF23639286ADD9900444B31 /* AccountChipModel.swift in Sources */,
 				0B8967EB286A2228000D155F /* NetworkError.swift in Sources */,
 				0BDE0319286C3645000FED12 /* PickerViewWrapperController.swift in Sources */,
