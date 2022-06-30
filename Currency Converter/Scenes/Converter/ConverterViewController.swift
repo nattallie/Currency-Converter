@@ -96,7 +96,7 @@ final class ConverterViewController: UIViewController {
         let input: CurrencyInput = .init(
             model: model,
             viewModel: .init(
-                icon: UIImage(systemName: "arrow.up.circle"),
+                icon: ImageBook.Icon.arrowUp,
                 title: presenter.sellInputTitle,
                 amount: presenter.defaultAmount,
                 selectedCurrency: presenter.sellCurrency
@@ -119,7 +119,7 @@ final class ConverterViewController: UIViewController {
         let input: CurrencyInput = .init(
             model: model,
             viewModel: .init(
-                icon: UIImage(systemName: "arrow.down.circle"),
+                icon: ImageBook.Icon.arrowDown,
                 title: presenter.receiveInputTitle,
                 amount: presenter.defaultAmount,
                 selectedCurrency: presenter.receiveCurrency

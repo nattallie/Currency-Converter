@@ -30,6 +30,7 @@
 		0BA2622F286DCC300034FC55 /* AlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA2622E286DCC300034FC55 /* AlertViewModel.swift */; };
 		0BB826EB286DE5C200305D84 /* SystemKeyboardInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB826EA286DE5C200305D84 /* SystemKeyboardInfo.swift */; };
 		0BB826ED286DEACE00305D84 /* NSLayoutConstraint.reference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB826EC286DEACE00305D84 /* NSLayoutConstraint.reference.swift */; };
+		0BB826F0286E48D600305D84 /* ImageBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB826EF286E48D600305D84 /* ImageBook.swift */; };
 		0BBC9BCF286B3771006BC1C9 /* CurrencyInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBC9BCE286B3771006BC1C9 /* CurrencyInput.swift */; };
 		0BBC9BD1286B3786006BC1C9 /* CurrencyInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBC9BD0286B3786006BC1C9 /* CurrencyInputViewModel.swift */; };
 		0BBC9BD3286B379C006BC1C9 /* CurrencyInputModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBC9BD2286B379C006BC1C9 /* CurrencyInputModel.swift */; };
@@ -70,6 +71,7 @@
 		0BA2622E286DCC300034FC55 /* AlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewModel.swift; sourceTree = "<group>"; };
 		0BB826EA286DE5C200305D84 /* SystemKeyboardInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemKeyboardInfo.swift; sourceTree = "<group>"; };
 		0BB826EC286DEACE00305D84 /* NSLayoutConstraint.reference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraint.reference.swift; sourceTree = "<group>"; };
+		0BB826EF286E48D600305D84 /* ImageBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBook.swift; sourceTree = "<group>"; };
 		0BBC9BCE286B3771006BC1C9 /* CurrencyInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyInput.swift; sourceTree = "<group>"; };
 		0BBC9BD0286B3786006BC1C9 /* CurrencyInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyInputViewModel.swift; sourceTree = "<group>"; };
 		0BBC9BD2286B379C006BC1C9 /* CurrencyInputModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyInputModel.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				0BF2363C286ADE8500444B31 /* Shared Models */,
 				0B8967F6286A3F4C000D155F /* Helpers */,
 				0B6A04CC2868DFE1007B89E0 /* Extensions */,
+				0BB826EE286E48CB00305D84 /* Resources */,
 				0B6A04BB2868D74C007B89E0 /* Assets.xcassets */,
 			);
 			path = "Currency Converter";
@@ -200,6 +203,14 @@
 				0B8967F7286A3F59000D155F /* Consts.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		0BB826EE286E48CB00305D84 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0BB826EF286E48D600305D84 /* ImageBook.swift */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		0BBC9BCD286B3762006BC1C9 /* Currency Input */ = {
@@ -338,6 +349,7 @@
 			files = (
 				0B8967E9286A1F0E000D155F /* NetworkRequestMethod.swift in Sources */,
 				0B8967F8286A3F59000D155F /* Consts.swift in Sources */,
+				0BB826F0286E48D600305D84 /* ImageBook.swift in Sources */,
 				0BDE031D286C37D7000FED12 /* PickerViewWrapperUIModel.swift in Sources */,
 				0BBC9BD3286B379C006BC1C9 /* CurrencyInputModel.swift in Sources */,
 				0BDE031B286C378C000FED12 /* PickerViewWrapperDelegate.swift in Sources */,

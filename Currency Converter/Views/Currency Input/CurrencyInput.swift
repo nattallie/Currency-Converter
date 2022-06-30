@@ -49,17 +49,39 @@ class CurrencyInput: UIView {
         textField.textColor = model.color.inputText
         
         let doneToolbar: UIToolbar = UIToolbar(
-            frame: CGRect(x: 0, y: 0, width: 300, height: 40)
+            frame: CGRect(
+                x: .zero,
+                y: .zero,
+                width: model.layout.toolbarDimension.width,
+                height: model.layout.toolbarDimension.height
+            )
         )
         doneToolbar.barStyle = UIBarStyle.default
 
-        let flexSpace: UIBarButtonItem = .init(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(textFieldEditingDone))
+        let flexSpace: UIBarButtonItem = .init(
+            barButtonSystemItem: .flexibleSpace,
+            target: nil,
+            action: nil
+        )
+        
+        let done: UIBarButtonItem = .init(
+            title: Consts.Common.done,
+            style: .done,
+            target: self,
+            action: #selector(textFieldEditingDone)
+        )
 
         doneToolbar.items = [flexSpace, done]
         textField.inputAccessoryView = doneToolbar
 
         return textField
+    }()
+    
+    private let currencyStackWrapper: UIView = {
+        let view: UIView = .init()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .clear
+        return view
     }()
     
     private lazy var currencyStack: UIStackView = {
@@ -84,7 +106,7 @@ class CurrencyInput: UIView {
     }()
     
     private lazy var chevronImage: UIImageView = {
-        let imageView: UIImageView = .init(image: .init(systemName: "chevron.down"))
+        let imageView: UIImageView = .init(image: ImageBook.Icon.chevron)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.isUserInteractionEnabled = false
         return imageView
@@ -151,7 +173,8 @@ class CurrencyInput: UIView {
         containerStack.addArrangedSubview(spaceView)
         containerStack.addArrangedSubview(inputField)
         
-        containerStack.addArrangedSubview(currencyStack)
+        containerStack.addArrangedSubview(currencyStackWrapper)
+        currencyStackWrapper.addSubview(currencyStack)
         currencyStack.addArrangedSubview(currencyLabel)
         currencyStack.addArrangedSubview(chevronImage)
     }
@@ -165,6 +188,12 @@ class CurrencyInput: UIView {
             spaceView.heightConstraint(toView: self, relation: .greaterThanOrEqual, constant: 1, multiplier: .zero),
             
             inputField.widthConstraint(constant: model.layout.inputFieldWidth),
+            
+            currencyStackWrapper.widthConstraint(constant: model.layout.currencyWrapperWidth),
+            
+            currencyStack.centerXConstraint(toView: currencyStackWrapper),
+            currencyStack.topConstraint(toView: currencyStackWrapper),
+            currencyStack.bottomConstraint(toView: currencyStackWrapper),
             
             containerStack.leadingConstraint(toView: self, constant: model.layout.spacing),
             containerStack.trailingConstraint(toView: self, constant: -model.layout.spacing),

@@ -17,7 +17,11 @@ struct CurrencyInputModel {
     // MARK: Layout
     struct Layout {
         let spacing: CGFloat = 8
+        
         let iconDimension: CGSize = .init(width: 40, height: 40)
+        let toolbarDimension: CGSize = .init(width: 300, height: 40)
+        
+        let currencyWrapperWidth: CGFloat = 60
         
         let inputFieldWidth: CGFloat = 100
     }

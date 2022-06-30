@@ -17,6 +17,7 @@ struct Consts {
     // MARK: - Common
     struct Common {
         static let OK: String = "OK"
+        static let done: String = "Done"
         
         static let errorOccured: String = "Error Occured"
     }
