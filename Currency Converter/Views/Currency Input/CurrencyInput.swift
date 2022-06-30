@@ -183,11 +183,31 @@ class CurrencyInput: UIView {
 extension CurrencyInput: UITextFieldDelegate {
     @objc private func textFieldEditingDone() {
         inputField.resignFirstResponder()
+        inputField.text = String(format: "%.2f", amount)
         delegate?.didChangeAmount(sender: self, amount: amount, currency: selectedCurrency)
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         delegate?.didBeginAmountEditing(sender: self)
+    }
+    
+    func textField(
+        _ textField: UITextField,
+        shouldChangeCharactersIn range: NSRange,
+        replacementString string: String
+    ) -> Bool {
+        guard string.count > 0 else { return true }
+        
+        if string == "," {
+            textField.text = textField.text! + "."
+            return false
+        }
+        
+        if !(string.first!.isNumber) && string != "." {
+            return false
+        }
+        
+        return true
     }
 }
 
