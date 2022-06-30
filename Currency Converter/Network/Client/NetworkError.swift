@@ -17,13 +17,13 @@ enum NetworkError: LocalizedError {
     var localizedDescription: String {
         switch self {
         case .invalidEndpoint:
-            return Consts.Common.invalidEndpoint
+            return Consts.Network.invalidEndpoint
         case .invalidURL:
-            return Consts.Common.invalidURL
+            return Consts.Network.invalidURL
         case .invalidResponse:
-            return Consts.Common.invalidResponse
+            return Consts.Network.invalidResponse
         case .invalidData:
-            return Consts.Common.invalidData
+            return Consts.Network.invalidData
         }
     }
 }

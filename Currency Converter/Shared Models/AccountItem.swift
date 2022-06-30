@@ -11,7 +11,7 @@ import Foundation
 struct AccountItem {
     // MARK: Properties
     let currency: Currency
-    let amount: Double
+    var amount: Double
     
     var stringRepresentable: String {
         get {

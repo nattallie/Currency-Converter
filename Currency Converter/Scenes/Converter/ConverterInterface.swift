@@ -27,7 +27,7 @@ protocol ConverterView: AnyObject {
     func showCurrencySelectorPopUp(selectedCurrencyIndex: Int)
     func dismissCurrencySelectorPopUp()
     
-    func showError(viewModel: ErrorViewModel)
+    func showAlert(viewModel: AlertViewModel)
     func startLoading()
     func stopLoading()
     

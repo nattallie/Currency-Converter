@@ -17,8 +17,13 @@ struct Consts {
     // MARK: - Common
     struct Common {
         static let OK: String = "OK"
-        static let networkError: String = "Network error"
+        
         static let errorOccured: String = "Error Occured"
+    }
+    
+    // MARK: - Network
+    struct Network {
+        static let networkError: String = "Network error"
         static let invalidEndpoint: String = "Error is caused because of invalid endpoint"
         static let invalidURL: String = "Error is caused because of invalid URL"
         static let invalidResponse: String = "Error is caused because of invalid network response"
@@ -36,6 +41,14 @@ struct Consts {
             static let sellTitle: String = "Sell"
             static let receiveTitle: String = "Receive"
             static let converterButtonTitle: String = "Submit"
+            
+            static let successfulConversion: String = "Successfully Converted"
+            
+            static let conversionMessage: String = "You have converted %@%@ to %@%@. "
+            
+            static let feeMessage: String = "Commision Fee - %@%@. "
+            static let numberOfFreeExchange: String = "You have %d more free conversions. "
+            static let noMoreFreeExchange: String = "No more free conversion. "
         }
     }
 }

@@ -18,11 +18,15 @@ final class ConverterPresenter: ConverterPresentable {
     var receiveInputTitle: String { Consts.Scenes.Converter.receiveTitle }
     
     private unowned let view: ConverterView
-    private let viewModel: ConverterViewModel
+    private var viewModel: ConverterViewModel
     private let converterUseCase: CurrencyConverterUseCase
     
     private var lastSelectedCurrencyInput: CurrencyInputType? = nil
     private var numberOfConversions: Int = 0
+    
+    private var isFreeConversion: Bool {
+        numberOfConversions < viewModel.numberOfFreeExchange
+    }
     
     // MARK: Initializers
     init(
@@ -112,9 +116,9 @@ final class ConverterPresenter: ConverterPresentable {
             view.setScreenInteraction(to: true)
             
             guard let conversionEntity = conversionEntity else {
-                view.showError(viewModel: .init(
+                view.showAlert(viewModel: .init(
                     title: Consts.Common.errorOccured,
-                    message: Consts.Common.networkError,
+                    message: Consts.Network.networkError,
                     actionTitle: Consts.Common.OK
                 ))
                 return
@@ -127,7 +131,7 @@ final class ConverterPresenter: ConverterPresentable {
             view.stopLoading()
             view.setScreenInteraction(to: true)
             
-            view.showError(viewModel: .init(
+            view.showAlert(viewModel: .init(
                 title: Consts.Common.errorOccured,
                 message: (error as? NetworkError)?.localizedDescription ?? "",
                 actionTitle: Consts.Common.OK
@@ -143,7 +147,7 @@ final class ConverterPresenter: ConverterPresentable {
         }
         
         var fee: Double = sellAmount * viewModel.commissionPercentage
-        if numberOfConversions < viewModel.numberOfFreeExchange {
+        if isFreeConversion {
             fee = 0
         }
         
@@ -194,7 +198,72 @@ final class ConverterPresenter: ConverterPresentable {
     }
     
     func didTapSubmitButton() {
+        view.setScreenInteraction(to: false)
+        
+        let fromAmount: Double = view.sellAmount
+        let toAmount: Double = view.receiveAmount
+        
+        guard
+            let fromIndex = viewModel.accountItems.firstIndex(where: { $0.currency == view.sellCurrency } ),
+            let toIndex = viewModel.accountItems.firstIndex(where: { $0.currency == view.receiveCurrency } )
+        else {
+            return
+        }
+        
+        let message: String = updateAccountsAndGetMessage(
+            fromAmount: fromAmount,
+            toAmount: toAmount,
+            fromIndex: fromIndex,
+            toIndex: toIndex
+        )
+
+        view.setScreenInteraction(to: true)
+        
+        view.showAlert(viewModel: .init(
+            title: Consts.Scenes.Converter.successfulConversion,
+            message: message,
+            actionTitle: Consts.Common.OK
+        ))
+    }
+    
+    private func updateAccountsAndGetMessage(
+        fromAmount: Double,
+        toAmount: Double,
+        fromIndex: Int,
+        toIndex: Int
+    ) -> String {
+        viewModel.accountItems[fromIndex].amount -= fromAmount
+        viewModel.accountItems[toIndex].amount += toAmount
+        
+        var message: String = .init(
+            format: Consts.Scenes.Converter.conversionMessage,
+            String(format: "%.2f", fromAmount),
+            view.sellCurrency.symbol,
+            String(format: "%.2f", toAmount),
+            view.receiveCurrency.symbol
+        )
+        
+        if !isFreeConversion {
+            let fee: Double = fromAmount * viewModel.commissionPercentage
+            viewModel.accountItems[fromIndex].amount -= fee
+            message += .init(format: Consts.Scenes.Converter.feeMessage, String(format: "%.2f", fee), view.sellCurrency.symbol)
+        }
+        
+        if isFreeConversion {
+            message += .init(
+                format: Consts.Scenes.Converter.numberOfFreeExchange,
+                viewModel.numberOfFreeExchange - numberOfConversions - 1
+            )
+        } else {
+            message += Consts.Scenes.Converter.noMoreFreeExchange
+        }
         
         numberOfConversions += 1
+        
+        view.setButtonActivity(to: isValidConversion(sellAmount: view.sellAmount, currency: view.sellCurrency))
+        view.updateAccountItem(at: fromIndex, viewModel.accountItems[fromIndex])
+        view.updateAccountItem(at: toIndex, viewModel.accountItems[toIndex])
+        
+        return message
     }
 }

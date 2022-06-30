@@ -10,7 +10,7 @@ import Foundation
 // MARK: - Converter View Model
 struct ConverterViewModel {
     // MARK: Properties
-    let accountItems: [AccountItem]
+    var accountItems: [AccountItem]
     let numberOfFreeExchange: Int
     let commissionPercentage: Double
     

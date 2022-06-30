@@ -322,7 +322,7 @@ extension ConverterViewController: ConverterView {
         dismiss(animated: true)
     }
     
-    func showError(viewModel: ErrorViewModel) {
+    func showAlert(viewModel: AlertViewModel) {
         let alert = UIAlertController(
             title: viewModel.title,
             message: viewModel.message,
