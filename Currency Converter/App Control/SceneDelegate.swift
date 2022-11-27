@@ -18,8 +18,34 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         window = .init(windowScene: windowScene)
-        window?.rootViewController = ConverterFactory.create()
+        window?.rootViewController = ConverterFactory.create(viewModel: getConverterViewModel())
         window?.makeKeyAndVisible()
+        UserDefaults.standard.set(true, forKey: Consts.KEY.hasRunBefore)
+    }
+    
+    private func getConverterViewModel() -> ConverterViewModel {
+        if !UserDefaults.standard.bool(forKey: Consts.KEY.hasRunBefore) {
+            return .mock
+        }
+        
+        return .init(
+            accountItems: [
+                .init(
+                    currency: .EUR,
+                    amount: UserDefaults.standard.double(forKey: Currency.EUR.key)
+                ),
+                .init(
+                    currency: .USD,
+                    amount: UserDefaults.standard.double(forKey: Currency.USD.key)
+                ),
+                .init(
+                    currency: .JPY,
+                    amount: UserDefaults.standard.double(forKey: Currency.JPY.key)
+                )
+            ],
+            numberOfFreeExchange: UserDefaults.standard.integer(forKey: Consts.KEY.numberOfFreeExchange),
+            commissionPercentage: 0.7
+        )
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

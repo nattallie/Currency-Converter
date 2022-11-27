@@ -23,7 +23,14 @@ final class ConverterPresenter: ConverterPresentable {
     private let converterUseCase: CurrencyConverterUseCase
     
     private var lastSelectedCurrencyInput: CurrencyInputType? = nil
-    private var numberOfConversions: Int = 0
+    private var numberOfConversions: Int = 0 {
+        didSet {
+            UserDefaults.standard.set(
+                viewModel.numberOfFreeExchange - numberOfConversions,
+                forKey: Consts.KEY.numberOfFreeExchange
+            )
+        }
+    }
     
     private var isFreeConversion: Bool {
         numberOfConversions < viewModel.numberOfFreeExchange
@@ -278,6 +285,9 @@ final class ConverterPresenter: ConverterPresentable {
         }
         
         numberOfConversions += 1
+        
+        UserDefaults.standard.set(viewModel.accountItems[fromIndex].amount, forKey: "\(view.sellCurrency.key)")
+        UserDefaults.standard.set(viewModel.accountItems[toIndex].amount, forKey: "\(view.receiveCurrency.key)")
         
         view.setButtonActivity(to: isValidConversion(sellAmount: view.sellAmount, currency: view.sellCurrency))
         view.updateAccountItem(at: fromIndex, viewModel.accountItems[fromIndex])

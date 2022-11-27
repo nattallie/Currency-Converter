@@ -25,4 +25,15 @@ enum Currency: String {
             return "¥"
         }
     }
+    
+    var key: String {
+        switch self {
+        case .USD:
+            return "USD_amount"
+        case .EUR:
+            return "EUR_amount"
+        case .JPY:
+            return "JPY_amount"
+        }
+    }
 }
