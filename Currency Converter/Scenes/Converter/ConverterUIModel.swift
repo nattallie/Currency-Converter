@@ -37,7 +37,8 @@ struct ConverterUIModel {
         
         static let submitButtonWidthMult: CGFloat = 0.5
         static let submitButtonHeight: CGFloat = 48
-        static let submitButtonMarginVer: CGFloat = 40
+        static let submitButtonMarginTop: CGFloat = 20
+        static let submitButtonMarginBottom: CGFloat = 40
         static var submitButtonCornerRadius: CGFloat { submitButtonHeight / 2 }
     }
     

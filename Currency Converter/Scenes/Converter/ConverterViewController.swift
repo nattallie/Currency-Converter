@@ -256,7 +256,7 @@ final class ConverterViewController: UIViewController {
             submitButton.centerXConstraint(toView: view),
             submitButton.widthConstraint(toView: view, multiplier: Model.Layout.submitButtonWidthMult),
             submitButton.heightConstraint(constant: Model.Layout.submitButtonHeight),
-            submitButton.bottomConstraint(toView: view, constant: -Model.Layout.submitButtonMarginVer).reference(in: &submitButtonBottomConstraint),
+            submitButton.bottomConstraint(toView: view, constant: -Model.Layout.submitButtonMarginBottom).reference(in: &submitButtonBottomConstraint),
             
             indicatorView.centerXConstraint(toView: view),
             indicatorView.centerYConstraint(toView: view)
@@ -288,7 +288,10 @@ final class ConverterViewController: UIViewController {
             animationCallback: { [weak self] in
                 guard let self = self else { return }
                 
-                self.submitButtonBottomConstraint?.constant = -keyboardInfo.frame.height - Model.Layout.spacing
+                NSLayoutConstraint.deactivate([self.submitButtonBottomConstraint!])
+                NSLayoutConstraint.activate([
+                    self.submitButton.topConstraint(toView: self.currencyInputStack, attribute: .bottom, constant: Model.Layout.submitButtonMarginTop).reference(in: &self.submitButtonBottomConstraint)
+                ])
             }
         )
     }
@@ -299,7 +302,10 @@ final class ConverterViewController: UIViewController {
             animationCallback: { [weak self] in
                 guard let self = self else { return }
                 
-                self.submitButtonBottomConstraint?.constant = -Model.Layout.submitButtonMarginVer
+                NSLayoutConstraint.deactivate([self.submitButtonBottomConstraint!])
+                NSLayoutConstraint.activate([
+                    self.submitButton.bottomConstraint(toView: self.view, constant: -Model.Layout.submitButtonMarginBottom).reference(in: &self.submitButtonBottomConstraint)
+                ])
             }
         )
     }
