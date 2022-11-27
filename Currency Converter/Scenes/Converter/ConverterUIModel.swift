@@ -33,7 +33,7 @@ struct ConverterUIModel {
 
         static let currencyInputStackSpacing: CGFloat = 8
         static var currencyInputStackMarginHor: CGFloat { currencyExchangeLabelMarginHor }
-        static var currencyInputStackMarginVer: CGFloat = 8
+        static var currencyInputStackMarginVer: CGFloat { currencyInputStackMarginHor }
         
         static let submitButtonWidthMult: CGFloat = 0.5
         static let submitButtonHeight: CGFloat = 48

@@ -63,6 +63,23 @@ final class ConverterViewController: UIViewController {
     private var accountChips: [AccountChip] = []
     
     // MARK: Currency Inputs
+    private let inputsScrollView: UIScrollView = {
+        let scrollView: UIScrollView = .init(frame: .zero)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.alwaysBounceHorizontal = false
+        scrollView.alwaysBounceVertical = true
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.backgroundColor = .clear
+        return scrollView
+    }()
+    
+    private let inputsScrollViewContainer: UIView = {
+        let view: UIView = .init(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .clear
+        return view
+    }()
+    
     private lazy var pickerWrapper: PickerViewWrapperController = {
         let pickerWrapper: PickerViewWrapperController = .init()
         pickerWrapper.delegate = self
@@ -155,7 +172,6 @@ final class ConverterViewController: UIViewController {
     var presenter: ConverterPresentable!
     
     private var titleLabelTopConstraint: NSLayoutConstraint?
-    private var submitButtonBottomConstraint: NSLayoutConstraint?
     
     // MARK: Life cycle
     override func viewDidLoad() {
@@ -189,11 +205,13 @@ final class ConverterViewController: UIViewController {
         accountItemsScrollView.addSubview(accountItemsStack)
         
         view.addSubview(currencyExchangeLabel)
-        view.addSubview(currencyInputStack)
+        view.addSubview(inputsScrollView)
+        inputsScrollView.addSubview(inputsScrollViewContainer)
+        inputsScrollViewContainer.addSubview(currencyInputStack)
         currencyInputStack.addArrangedSubview(sellInput)
         currencyInputStack.addArrangedSubview(receiveInput)
         
-        view.addSubview(submitButton)
+        inputsScrollViewContainer.addSubview(submitButton)
         view.addSubview(indicatorView)
     }
     
@@ -245,18 +263,25 @@ final class ConverterViewController: UIViewController {
                 constant: Model.Layout.currencyExchangeLabelMarginVer
             ),
             
-            currencyInputStack.leadingConstraint(toView: view, constant: Model.Layout.currencyInputStackMarginHor),
-            currencyInputStack.trailingConstraint(toView: view, constant: -Model.Layout.currencyInputStackMarginHor),
-            currencyInputStack.topConstraint(
-                toView: currencyExchangeLabel,
-                attribute: .bottom,
-                constant: Model.Layout.currencyInputStackMarginVer
-            ),
+            inputsScrollView.widthConstraint(toView: view),
+            inputsScrollView.centerXConstraint(toView: view),
+            inputsScrollView.topConstraint(toView: currencyExchangeLabel, attribute: .bottom, constant: Model.Layout.currencyInputStackMarginVer),
+            inputsScrollView.bottomConstraint(toView: view),
             
-            submitButton.centerXConstraint(toView: view),
-            submitButton.widthConstraint(toView: view, multiplier: Model.Layout.submitButtonWidthMult),
+            inputsScrollViewContainer.widthConstraint(toView: inputsScrollView),
+            inputsScrollViewContainer.centerXConstraint(toView: inputsScrollView),
+            inputsScrollViewContainer.topConstraint(toView: inputsScrollView),
+            inputsScrollViewContainer.bottomConstraint(toView: inputsScrollView),
+            
+            currencyInputStack.leadingConstraint(toView: inputsScrollViewContainer, constant: Model.Layout.currencyInputStackMarginHor),
+            currencyInputStack.trailingConstraint(toView: inputsScrollViewContainer, constant: -Model.Layout.currencyInputStackMarginHor),
+            currencyInputStack.topConstraint(toView: inputsScrollViewContainer),
+            
+            submitButton.centerXConstraint(toView: inputsScrollViewContainer),
+            submitButton.widthConstraint(toView: inputsScrollViewContainer, multiplier: Model.Layout.submitButtonWidthMult),
             submitButton.heightConstraint(constant: Model.Layout.submitButtonHeight),
-            submitButton.bottomConstraint(toView: view, constant: -Model.Layout.submitButtonMarginBottom).reference(in: &submitButtonBottomConstraint),
+            submitButton.topConstraint(toView: currencyInputStack, attribute: .bottom, constant: Model.Layout.currencyInputStackMarginVer),
+            submitButton.bottomConstraint(toView: inputsScrollViewContainer, constant: -Model.Layout.submitButtonMarginBottom),
             
             indicatorView.centerXConstraint(toView: view),
             indicatorView.centerYConstraint(toView: view)
@@ -288,24 +313,20 @@ final class ConverterViewController: UIViewController {
             animationCallback: { [weak self] in
                 guard let self = self else { return }
                 
-                NSLayoutConstraint.deactivate([self.submitButtonBottomConstraint!])
-                NSLayoutConstraint.activate([
-                    self.submitButton.topConstraint(toView: self.currencyInputStack, attribute: .bottom, constant: Model.Layout.submitButtonMarginTop).reference(in: &self.submitButtonBottomConstraint)
-                ])
+                self.inputsScrollView.contentInset.bottom = keyboardInfo.frame.height - (self.view.frame.height - keyboardInfo.frame.height - self.inputsScrollView.frame.minY) + Model.Layout.submitButtonMarginBottom
             }
         )
     }
     
     private func keyboardWillHide(notification: Notification) {
+        let keyboardInfo: SystemKeyboardInfo = .init(notification: notification)
+        
         animateView(
-            keyboardInfo: .init(notification: notification),
+            keyboardInfo: keyboardInfo,
             animationCallback: { [weak self] in
                 guard let self = self else { return }
                 
-                NSLayoutConstraint.deactivate([self.submitButtonBottomConstraint!])
-                NSLayoutConstraint.activate([
-                    self.submitButton.bottomConstraint(toView: self.view, constant: -Model.Layout.submitButtonMarginBottom).reference(in: &self.submitButtonBottomConstraint)
-                ])
+                self.inputsScrollView.contentInset.bottom = 0
             }
         )
     }
