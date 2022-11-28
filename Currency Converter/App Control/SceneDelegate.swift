@@ -25,7 +25,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private func getConverterViewModel() -> ConverterViewModel {
         if !UserDefaults.standard.bool(forKey: Consts.KEY.hasRunBefore) {
-            return .mock
+            let viewModel: ConverterViewModel = .mock
+            syncConverterViewModel(viewModel: viewModel)
+            return viewModel
         }
         
         return .init(
@@ -46,6 +48,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             numberOfFreeExchange: UserDefaults.standard.integer(forKey: Consts.KEY.numberOfFreeExchange),
             commissionPercentage: 0.7
         )
+    }
+    
+    private func syncConverterViewModel(viewModel: ConverterViewModel) {
+        viewModel.accountItems.forEach { accountItem in
+            UserDefaults.standard.set(accountItem.amount, forKey: accountItem.currency.key)
+        }
+        UserDefaults.standard.set(viewModel.numberOfFreeExchange, forKey: Consts.KEY.numberOfFreeExchange)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
