@@ -18,6 +18,7 @@
 		0B6A04D72868F134007B89E0 /* ConverterUIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A04D62868F134007B89E0 /* ConverterUIModel.swift */; };
 		0B6A04DB2868F18F007B89E0 /* ConverterInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A04DA2868F18F007B89E0 /* ConverterInterface.swift */; };
 		0B6A66F0286B265F00B7A793 /* ConverterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6A66EF286B265F00B7A793 /* ConverterViewModel.swift */; };
+		0B70B650296B77B8003D0252 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B70B64F296B77B8003D0252 /* UserDefaults.swift */; };
 		0B769820286CEEDF001188F1 /* CurrencyInputType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B76981F286CEEDF001188F1 /* CurrencyInputType.swift */; };
 		0B8967E4286A1D0E000D155F /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8967E3286A1D0E000D155F /* NetworkClient.swift */; };
 		0B8967E7286A1DD0000D155F /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8967E6286A1DD0000D155F /* NetworkRequest.swift */; };
@@ -60,6 +61,7 @@
 		0B6A04D62868F134007B89E0 /* ConverterUIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterUIModel.swift; sourceTree = "<group>"; };
 		0B6A04DA2868F18F007B89E0 /* ConverterInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterInterface.swift; sourceTree = "<group>"; };
 		0B6A66EF286B265F00B7A793 /* ConverterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterViewModel.swift; sourceTree = "<group>"; };
+		0B70B64F296B77B8003D0252 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		0B76981F286CEEDF001188F1 /* CurrencyInputType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyInputType.swift; sourceTree = "<group>"; };
 		0B8967E3286A1D0E000D155F /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		0B8967E6286A1DD0000D155F /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				0B6A04CD2868E046007B89E0 /* UIView.NSLayoutConstraints.swift */,
 				0BB826EC286DEACE00305D84 /* NSLayoutConstraint.reference.swift */,
 				0BEF0B40286E58C1009C8200 /* UIApplication.rootWindow.swift */,
+				0B70B64F296B77B8003D0252 /* UserDefaults.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -382,6 +385,7 @@
 				0BBC9BCF286B3771006BC1C9 /* CurrencyInput.swift in Sources */,
 				0BF23637286ADD6F00444B31 /* AccountChip.swift in Sources */,
 				0B8967F1286A3CEF000D155F /* CurrencyConverterUseCase.swift in Sources */,
+				0B70B650296B77B8003D0252 /* UserDefaults.swift in Sources */,
 				0BF2363B286ADDA200444B31 /* AccountChipViewModel.swift in Sources */,
 				0BBC9BD1286B3786006BC1C9 /* CurrencyInputViewModel.swift in Sources */,
 				0B6A66F0286B265F00B7A793 /* ConverterViewModel.swift in Sources */,

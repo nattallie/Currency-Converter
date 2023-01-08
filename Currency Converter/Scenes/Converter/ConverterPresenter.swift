@@ -25,10 +25,7 @@ final class ConverterPresenter: ConverterPresentable {
     private var lastSelectedCurrencyInput: CurrencyInputType? = nil
     private var numberOfConversions: Int = 0 {
         didSet {
-            UserDefaults.standard.set(
-                viewModel.numberOfFreeExchange - numberOfConversions,
-                forKey: Consts.KEY.numberOfFreeExchange
-            )
+            UserDefaults.numberOfFreeExchange = viewModel.numberOfFreeExchange - numberOfConversions
         }
     }
     

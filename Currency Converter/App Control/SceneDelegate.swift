@@ -20,11 +20,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = .init(windowScene: windowScene)
         window?.rootViewController = ConverterFactory.create(viewModel: getConverterViewModel())
         window?.makeKeyAndVisible()
-        UserDefaults.standard.set(true, forKey: Consts.KEY.hasRunBefore)
+        UserDefaults.hasRunBefore = true
     }
     
     private func getConverterViewModel() -> ConverterViewModel {
-        if !UserDefaults.standard.bool(forKey: Consts.KEY.hasRunBefore) {
+        if !UserDefaults.hasRunBefore {
             let viewModel: ConverterViewModel = .mock
             syncConverterViewModel(viewModel: viewModel)
             return viewModel
@@ -45,8 +45,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     amount: UserDefaults.standard.double(forKey: Currency.JPY.key)
                 )
             ],
-            numberOfFreeExchange: UserDefaults.standard.integer(forKey: Consts.KEY.numberOfFreeExchange),
-            commissionPercentage: 0.7
+            numberOfFreeExchange: UserDefaults.numberOfFreeExchange,
+            commissionPercentage: UserDefaults.commissionPercentage
         )
     }
     
@@ -54,7 +54,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         viewModel.accountItems.forEach { accountItem in
             UserDefaults.standard.set(accountItem.amount, forKey: accountItem.currency.key)
         }
-        UserDefaults.standard.set(viewModel.numberOfFreeExchange, forKey: Consts.KEY.numberOfFreeExchange)
+        UserDefaults.numberOfFreeExchange = viewModel.numberOfFreeExchange
+        UserDefaults.commissionPercentage = viewModel.commissionPercentage
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

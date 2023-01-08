@@ -14,12 +14,6 @@ struct Consts {
         static let baseURL: String = "http://api.evp.lt"
     }
     
-    // MARK: - KEY
-    struct KEY {
-        static let hasRunBefore: String = "hasRunBefore"
-        static let numberOfFreeExchange: String = "numberOfFreeExchange"
-    }
-    
     // MARK: - Common
     struct Common {
         static let OK: String = "OK"
