@@ -8,14 +8,14 @@
 import Foundation
 
 // MARK: - Currency
-enum Currency: String {
+public enum Currency: String, CaseIterable {
     // MARK: Cases
     case USD = "USD"
     case EUR = "EUR"
     case JPY = "JPY"
     
     // MARK: Properties
-    var symbol: String {
+    public var symbol: String {
         switch self {
         case .USD:
             return "$"
