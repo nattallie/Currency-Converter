@@ -8,7 +8,7 @@
 import UIKit
 
 // MARK: - Root View
-extension UIApplication {
+public extension UIApplication {
     var rootWindow: UIWindow? {
         return connectedScenes
             .compactMap { $0 as? UIWindowScene }

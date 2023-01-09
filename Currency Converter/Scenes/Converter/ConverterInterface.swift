@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Converter View
-protocol ConverterView: AnyObject {
+public protocol ConverterView: AnyObject {
     var sellAmount: Double { get }
     var receiveAmount: Double { get }
     
@@ -39,7 +39,7 @@ protocol ConverterView: AnyObject {
 }
 
 // MARK: - Converter Presentable
-protocol ConverterPresentable {
+public protocol ConverterPresentable {
     var numberOfCurrencies: Int { get }
     var sellCurrency: Currency { get }
     var receiveCurrency: Currency { get }

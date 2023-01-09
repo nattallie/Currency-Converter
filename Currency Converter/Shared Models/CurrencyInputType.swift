@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Currency Input Type
-enum CurrencyInputType {
+public enum CurrencyInputType {
     case sell
     case receive
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: Alert View Model
-struct AlertViewModel {
+public struct AlertViewModel {
     let title: String
     let message: String
     let actionTitle: String?

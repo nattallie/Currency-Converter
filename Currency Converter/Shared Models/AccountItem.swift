@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Account Item
-struct AccountItem {
+public struct AccountItem: Equatable {
     // MARK: Properties
     let currency: Currency
     var amount: Double
@@ -17,5 +17,10 @@ struct AccountItem {
         get {
             "\(String(format: "%.2f", amount)) \(currency.symbol)"
         }
+    }
+    
+    public init(currency: Currency, amount: Double) {
+        self.currency = currency
+        self.amount = amount
     }
 }

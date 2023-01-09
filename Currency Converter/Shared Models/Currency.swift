@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Currency
-public enum Currency: String, CaseIterable {
+public enum Currency: String, CaseIterable, Equatable {
     // MARK: Cases
     case USD = "USD"
     case EUR = "EUR"

@@ -8,14 +8,24 @@
 import Foundation
 
 // MARK: - Converter View Model
-struct ConverterViewModel {
+public struct ConverterViewModel: Equatable {
     // MARK: Properties
     var accountItems: [AccountItem]
     let numberOfFreeExchange: Int
     let commissionPercentage: Double
     
+    public init(
+        accountItems: [AccountItem],
+        numberOfFreeExchange: Int,
+        commissionPercentage: Double
+    ) {
+        self.accountItems = accountItems
+        self.numberOfFreeExchange = numberOfFreeExchange
+        self.commissionPercentage = commissionPercentage
+    }
+    
     // MARK: Mock
-    static var mock: ConverterViewModel = .init(
+    public static var mock: ConverterViewModel = .init(
         accountItems: [
             .init(currency: .EUR, amount: 1000),
             .init(currency: .USD, amount: 0),

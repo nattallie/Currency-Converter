@@ -7,8 +7,8 @@
 
 import Foundation
 
-extension UserDefaults {
-    private enum Keys {
+public extension UserDefaults {
+    enum Keys {
         static let hasRunBefore: String = "hasRunBefore"
         static let numberOfFreeExchange: String = "numberOfFreeExchange"
         static let commissionPercentage: String = "commissionPercentage"
