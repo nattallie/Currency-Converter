@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Currency Converter Entity
-struct CurrencyConverterEntity: Decodable {
+public struct CurrencyConverterEntity: Decodable {
     let amount: String
     let currency: String
     

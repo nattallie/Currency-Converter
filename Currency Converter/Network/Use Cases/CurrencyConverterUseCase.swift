@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Currency Converter Use Case
-protocol CurrencyConverterUseCase {
+public protocol CurrencyConverterUseCase {
     func fetch(
         parameters: CurrencyConverterParameters
     ) async throws -> CurrencyConverterEntity?

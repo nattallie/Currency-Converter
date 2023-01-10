@@ -10,8 +10,8 @@ import Foundation
 // MARK: - Account Item
 public struct AccountItem: Equatable {
     // MARK: Properties
-    let currency: Currency
-    var amount: Double
+    public let currency: Currency
+    public var amount: Double
     
     var stringRepresentable: String {
         get {

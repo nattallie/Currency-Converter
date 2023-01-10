@@ -32,6 +32,7 @@ struct CurrencyInputModel {
         var inputLabel: UIColor = .blue
         
         var inputText: UIColor = .black
+        var background: UIColor = .white
     }
     
     // MARK: Font

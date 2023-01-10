@@ -47,6 +47,7 @@ class CurrencyInput: UIView {
         textField.textAlignment = .center
         textField.borderStyle = .roundedRect
         textField.textColor = model.color.inputText
+        textField.backgroundColor = model.color.background
         
         let doneToolbar: UIToolbar = UIToolbar(
             frame: CGRect(

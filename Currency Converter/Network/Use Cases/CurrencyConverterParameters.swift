@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Currency Converter Parameters
-struct CurrencyConverterParameters {
+public struct CurrencyConverterParameters {
     let fromAmount: Double
     let fromCurrency: String
     let toCurrency: String
