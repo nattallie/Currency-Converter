@@ -8,7 +8,7 @@
 import UIKit
 
 // MARK: - Converter View Controller
-final class ConverterViewController: UIViewController {
+public final class ConverterViewController: UIViewController {
     // MARK: Subviews
     
     // MARK: Top Container
@@ -169,19 +169,19 @@ final class ConverterViewController: UIViewController {
     // MARK: Properties
     private typealias Model = ConverterUIModel
     
-    var presenter: ConverterPresentable!
+    public var presenter: ConverterPresentable!
     
     private var titleLabelTopConstraint: NSLayoutConstraint?
     
     // MARK: Life cycle
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         
         setup()
         presenter.viewDidLoad()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         titleLabelTopConstraint?.constant = UIApplication.shared.rootWindow?.safeAreaInsets.top ?? 0
@@ -346,22 +346,22 @@ final class ConverterViewController: UIViewController {
 // MARK: - Converter View
 extension ConverterViewController: ConverterView {
     // MARK: Properties
-    var sellAmount: Double { sellInput.amount }
-    var receiveAmount: Double { receiveInput.amount }
+    public var sellAmount: Double { sellInput.amount }
+    public var receiveAmount: Double { receiveInput.amount }
     
-    var sellCurrency: Currency { sellInput.selectedCurrency }
-    var receiveCurrency: Currency { receiveInput.selectedCurrency }
+    public var sellCurrency: Currency { sellInput.selectedCurrency }
+    public var receiveCurrency: Currency { receiveInput.selectedCurrency }
     
     // MARK: Top container
-    func setTitle(_ title: String) {
+    public func setTitle(_ title: String) {
         titleLabel.text = title
     }
     
-    func setBalanceTitle(_ title: String) {
+    public func setBalanceTitle(_ title: String) {
         balanceLabel.text = title
     }
     
-    func setAccountItems(_ items: [AccountItem]) {
+    public func setAccountItems(_ items: [AccountItem]) {
         accountChips.forEach { $0.removeFromSuperview() }
         
         accountChips.removeAll()
@@ -378,18 +378,18 @@ extension ConverterViewController: ConverterView {
         }
     }
     
-    func updateAccountItem(at index: Int, _ item: AccountItem) {
+    public func updateAccountItem(at index: Int, _ item: AccountItem) {
         guard (0..<accountChips.count).contains(index) else { return }
         
         accountChips[index].configure(viewModel: .init(accountItem: item))
     }
     
     // MARK: Currency Inputs
-    func setCurrencyExchangeTitle(_ title: String) {
+    public func setCurrencyExchangeTitle(_ title: String) {
         currencyExchangeLabel.text = title
     }
     
-    func setCurrencyInputActivity(to isEnabled: Bool, inputType: CurrencyInputType) {
+    public func setCurrencyInputActivity(to isEnabled: Bool, inputType: CurrencyInputType) {
         switch inputType {
         case .sell:
             sellInput.isUserInteractionEnabled = isEnabled
@@ -398,7 +398,7 @@ extension ConverterViewController: ConverterView {
         }
     }
     
-    func setCurrentAmount(_ amount: Double, inputType: CurrencyInputType) {
+    public func setCurrentAmount(_ amount: Double, inputType: CurrencyInputType) {
         switch inputType {
         case .sell:
             sellInput.configure(amount: amount)
@@ -407,7 +407,7 @@ extension ConverterViewController: ConverterView {
         }
     }
     
-    func setCurrentCurrency(_ currency: Currency, inputType: CurrencyInputType) {
+    public func setCurrentCurrency(_ currency: Currency, inputType: CurrencyInputType) {
         switch inputType {
         case .sell:
             sellInput.configure(currency: currency)
@@ -417,18 +417,18 @@ extension ConverterViewController: ConverterView {
     }
     
     // MARK: Pop Ups and alerts
-    func showCurrencySelectorPopUp(selectedCurrencyIndex: Int) {
+    public func showCurrencySelectorPopUp(selectedCurrencyIndex: Int) {
         let _ = sellInput.resignFirstResponder()
         let _ = receiveInput.resignFirstResponder()
         pickerWrapper.configure(selectedRow: selectedCurrencyIndex, in: 0)
         present(pickerWrapper, animated: true)
     }
     
-    func dismissCurrencySelectorPopUp() {
+    public func dismissCurrencySelectorPopUp() {
         dismiss(animated: true)
     }
     
-    func showAlert(viewModel: AlertViewModel) {
+    public func showAlert(viewModel: AlertViewModel) {
         let alert = UIAlertController(
             title: viewModel.title,
             message: viewModel.message,
@@ -446,24 +446,24 @@ extension ConverterViewController: ConverterView {
     }
     
     // MARK: Loaders
-    func startLoading() {
+    public func startLoading() {
         indicatorView.startAnimating()
     }
     
-    func stopLoading() {
+    public func stopLoading() {
         indicatorView.stopAnimating()
     }
     
-    func setScreenInteraction(to isInteractive: Bool) {
+    public func setScreenInteraction(to isInteractive: Bool) {
         view.isUserInteractionEnabled = isInteractive
     }
     
     // MARK: Button actions
-    func setButtonTitle(_ title: String) {
+    public func setButtonTitle(_ title: String) {
         submitButton.setTitle(title, for: .normal)
     }
     
-    func setButtonActivity(to isEnabled: Bool) {
+    public func setButtonActivity(to isEnabled: Bool) {
         submitButton.backgroundColor = isEnabled ? Model.Color.buttonEnabled : Model.Color.buttonDisabled
         submitButton.isUserInteractionEnabled = isEnabled
     }

@@ -8,12 +8,12 @@
 import UIKit
 
 // MARK: - Converter Factory
-struct ConverterFactory {
+public struct ConverterFactory {
     // MARK: Initializers
     private init() {}
     
     // MARK: Factory
-    static func create(viewModel: ConverterViewModel = .mock) -> UIViewController {
+    public static func create(viewModel: ConverterViewModel = .mock) -> UIViewController {
         let viewController: ConverterViewController = .init()
         
         let presenter: ConverterPresenter = .init(

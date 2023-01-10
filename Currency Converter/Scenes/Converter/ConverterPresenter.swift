@@ -8,15 +8,15 @@
 import Foundation
 
 // MARK: - Converter Presenter
-final class ConverterPresenter: ConverterPresentable {
+public final class ConverterPresenter: ConverterPresentable {
     // MARK: Properties
-    var numberOfCurrencies: Int { viewModel.accountItems.count }
-    var sellCurrency: Currency { viewModel.accountItems.first?.currency ?? Currency.EUR }
-    var receiveCurrency: Currency { viewModel.accountItems.last?.currency ?? Currency.EUR }
-    var defaultAmount: Double { 0 }
+    public var numberOfCurrencies: Int { viewModel.accountItems.count }
+    public var sellCurrency: Currency { viewModel.accountItems.first?.currency ?? Currency.EUR }
+    public var receiveCurrency: Currency { viewModel.accountItems.last?.currency ?? Currency.EUR }
+    public var defaultAmount: Double { 0 }
     
-    var sellInputTitle: String { Consts.Scenes.Converter.sellTitle }
-    var receiveInputTitle: String { Consts.Scenes.Converter.receiveTitle }
+    public var sellInputTitle: String { Consts.Scenes.Converter.sellTitle }
+    public var receiveInputTitle: String { Consts.Scenes.Converter.receiveTitle }
     
     private unowned let view: ConverterView
     private var viewModel: ConverterViewModel
@@ -34,7 +34,7 @@ final class ConverterPresenter: ConverterPresentable {
     }
     
     // MARK: Initializers
-    init(
+    public init(
         view: ConverterView,
         viewModel: ConverterViewModel,
         converterUseCase: CurrencyConverterUseCase
@@ -45,7 +45,7 @@ final class ConverterPresenter: ConverterPresentable {
     }
     
     // MARK: Converter Presentable
-    func viewDidLoad() {
+    public func viewDidLoad() {
         view.setTitle(Consts.Scenes.Converter.title)
         view.setBalanceTitle(Consts.Scenes.Converter.balanceTitle)
         view.setAccountItems(viewModel.accountItems)
@@ -54,7 +54,7 @@ final class ConverterPresenter: ConverterPresentable {
         view.setButtonActivity(to: true)
     }
     
-    func titleForCurrency(at index: Int) -> String {
+    public func titleForCurrency(at index: Int) -> String {
         guard (0..<viewModel.accountItems.count).contains(index) else {
             fatalError()
         }
@@ -63,7 +63,7 @@ final class ConverterPresenter: ConverterPresentable {
     }
     
     // MARK: Conversion Processing
-    func didChangeAmount(inputType: CurrencyInputType, amount: Double, currency: Currency) {
+    public func didChangeAmount(inputType: CurrencyInputType, amount: Double, currency: Currency) {
         var toCurrency: Currency
         var destinationInput: CurrencyInputType
         
@@ -147,7 +147,7 @@ final class ConverterPresenter: ConverterPresentable {
         }
     }
     
-    private func isValidConversion(sellAmount: Double, currency: Currency) -> Bool {
+    public func isValidConversion(sellAmount: Double, currency: Currency) -> Bool {
         guard
             let accountIndex = viewModel.accountItems.firstIndex(where: { $0.currency == currency } )
         else {
@@ -162,7 +162,7 @@ final class ConverterPresenter: ConverterPresentable {
         return sellAmount <= viewModel.accountItems[accountIndex].amount + fee
     }
     
-    func didTapCurrencyButton(inputType: CurrencyInputType) {
+    public func didTapCurrencyButton(inputType: CurrencyInputType) {
         lastSelectedCurrencyInput = inputType
         
         switch lastSelectedCurrencyInput {
@@ -181,7 +181,7 @@ final class ConverterPresenter: ConverterPresentable {
         }
     }
     
-    func didTapCurrencyInput(inputType: CurrencyInputType) {
+    public func didTapCurrencyInput(inputType: CurrencyInputType) {
         switch inputType {
         case .sell:
             view.setCurrencyInputActivity(to: false, inputType: .receive)
@@ -191,7 +191,7 @@ final class ConverterPresenter: ConverterPresentable {
         view.setButtonActivity(to: false)
     }
     
-    func didSelectCurrency(_ index: Int) {
+    public func didSelectCurrency(_ index: Int) {
         view.dismissCurrencySelectorPopUp()
         view.setButtonActivity(to: false)
         if let lastSelected = lastSelectedCurrencyInput {
@@ -217,7 +217,7 @@ final class ConverterPresenter: ConverterPresentable {
     }
     
     // MARK: Submit Button actions
-    func didTapSubmitButton() {
+    public func didTapSubmitButton() {
         view.setScreenInteraction(to: false)
         
         let fromAmount: Double = view.sellAmount

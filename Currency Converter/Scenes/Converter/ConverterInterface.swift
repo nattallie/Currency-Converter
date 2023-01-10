@@ -53,6 +53,7 @@ public protocol ConverterPresentable {
     func titleForCurrency(at index: Int) -> String
     
     func didChangeAmount(inputType: CurrencyInputType, amount: Double, currency: Currency)
+    func isValidConversion(sellAmount: Double, currency: Currency) -> Bool
     func didTapCurrencyButton(inputType: CurrencyInputType)
     func didTapCurrencyInput(inputType: CurrencyInputType)
     func didSelectCurrency(_ index: Int)
