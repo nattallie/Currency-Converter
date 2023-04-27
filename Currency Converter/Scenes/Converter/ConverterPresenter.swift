@@ -33,6 +33,10 @@ public final class ConverterPresenter: ConverterPresentable {
         numberOfConversions < viewModel.numberOfFreeExchange
     }
     
+    private var isLastFreeConversion: Bool {
+        numberOfConversions == viewModel.numberOfFreeExchange - 1
+    }
+    
     // MARK: Initializers
     public init(
         view: ConverterView,
@@ -270,15 +274,13 @@ public final class ConverterPresenter: ConverterPresentable {
                 format: Consts.Scenes.Converter.feeMessage,
                 String(format: "%.2f", fee), view.sellCurrency.symbol
             )
-        }
-        
-        if isFreeConversion {
+        } else if isLastFreeConversion {
+            message += Consts.Scenes.Converter.noMoreFreeExchange
+        } else {
             message += .init(
                 format: Consts.Scenes.Converter.numberOfFreeExchange,
                 viewModel.numberOfFreeExchange - numberOfConversions - 1
             )
-        } else {
-            message += Consts.Scenes.Converter.noMoreFreeExchange
         }
         
         numberOfConversions += 1
